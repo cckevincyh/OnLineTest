@@ -1,0 +1,174 @@
+package com.cc.onlinetest.action;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.PropertyFilter;
+
+import org.apache.struts2.ServletActionContext;
+
+import com.cc.onlinetest.domain.Course;
+import com.cc.onlinetest.domain.PageBean;
+import com.cc.onlinetest.service.CourseService;
+import com.opensymphony.xwork2.ActionSupport;
+
+public class CourseManageAction extends ActionSupport{
+
+	
+	private CourseService courseService;
+
+	public void setCourseService(CourseService courseService) {
+		this.courseService = courseService;
+	}
+	
+	
+	private int pageCode;
+	private int courseId;
+	
+	public void setPageCode(int pageCode) {
+		this.pageCode = pageCode;
+	}
+
+	private String courseName;
+	
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+	
+	
+
+	/**
+	 * @param courseId the courseId to set
+	 */
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+
+
+
+	/**
+	 * 根据页码找到对应的课程
+	 * @return
+	 */
+	public String findCourseByPage(){
+		//获取页面传递过来的当前页码数
+		if(pageCode==0){
+			pageCode = 1;
+		}
+		//给pageSize,每页的记录数赋值
+		int pageSize = 5;
+		
+		PageBean<Course> pb = courseService.findCourseByPage(pageCode,pageSize);
+		if(pb!=null){
+			pb.setUrl("findCourseByPage.action?");
+		}
+		//存入request域中
+		ServletActionContext.getRequest().setAttribute("pb", pb);
+		return  "success";
+	}
+	
+	/**
+	 * 添加课程
+	 * @return
+	 */
+	public String addCourse(){
+		Course course = new Course();
+		course.setCourseName(courseName);
+		Course course2 = courseService.getCourseByName(course);
+		int success = 0;
+		if(course2!=null){
+			success = -1;
+		}else{
+			boolean b = courseService.addCourse(course);
+			if(b){
+				success = 1;
+			}else{
+				success = 0;
+			
+			}
+		}
+		try {
+			ServletActionContext.getResponse().getWriter().print(success);//向浏览器响应是否成功的状态码
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(e.getMessage());
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * 得到指定的课程
+	 * Ajax请求该方法
+	 * 向浏览器返回该课程的json对象
+	 * @return
+	 */
+	public String getCourse(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("application/json;charset=utf-8");
+		Course course = new Course();
+		course.setCourseId(courseId);
+		Course newCourse = courseService.getCourseById(course);
+		JSONObject jsonObject = JSONObject.fromObject(newCourse);
+		try {
+			response.getWriter().print(jsonObject);
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * 修改指定课程
+	 * @return
+	 */
+	public String updateCourse(){
+		Course course = new Course();
+		course.setCourseId(courseId);
+		Course updateCourse = courseService.getCourseById(course);//查出需要修改的课程对象
+		updateCourse.setCourseName(courseName);
+		Course course2 = courseService.getCourseByName(updateCourse);
+		int success = 0;
+		if(course2!=null){
+			success = -1;
+		}else{
+			Course newCourse = courseService.updateCourse(updateCourse);//修改该课程对象
+			if(newCourse!=null){
+				success = 1;
+				//由于是转发并且js页面刷新,所以无需重查
+			}
+		}
+		try {
+			ServletActionContext.getResponse().getWriter().print(success);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(e.getMessage());
+		}
+		return null;
+	}
+	
+	
+	public String deleteCourse(){
+		Course course = new Course();
+		course.setCourseId(courseId);
+		boolean deleteCourse = courseService.deleteCourse(course);
+		int success = 0;
+		if(deleteCourse){
+			success = 1;
+			//由于是转发并且js页面刷新,所以无需重查
+		}
+		try {
+			ServletActionContext.getResponse().getWriter().print(success);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(e.getMessage());
+		}
+		
+		return null;
+	}
+	
+}
