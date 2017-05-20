@@ -17,4 +17,6 @@ public interface CourseService {
 
 	boolean deleteCourse(Course course);
 
+	PageBean<Course> queryCourse(Course course, int pageCode, int pageSize);
+
 }

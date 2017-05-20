@@ -151,7 +151,10 @@ public class CourseManageAction extends ActionSupport{
 		return null;
 	}
 	
-	
+	/**
+	 * 删除课程
+	 * @return
+	 */
 	public String deleteCourse(){
 		Course course = new Course();
 		course.setCourseId(courseId);
@@ -171,4 +174,28 @@ public class CourseManageAction extends ActionSupport{
 		return null;
 	}
 	
+	
+	public String queryCourse(){
+		//获取页面传递过来的当前页码数
+		if(pageCode==0){
+			pageCode = 1;
+		}
+		//给pageSize,每页的记录数赋值
+		int pageSize = 5;
+		PageBean<Course> pb = null;
+		if("".equals(courseName.trim())){
+			pb = courseService.findCourseByPage(pageCode,pageSize);
+		}else{
+			Course course = new Course();
+			course.setCourseName(courseName);
+			pb = courseService.queryCourse(course,pageCode,pageSize);
+			
+		}
+		if(pb!=null){
+			pb.setUrl("queryCourse.action?courseName="+courseName+"&");
+		}
+
+		ServletActionContext.getRequest().setAttribute("pb", pb);
+		return "success";
+	}
 }

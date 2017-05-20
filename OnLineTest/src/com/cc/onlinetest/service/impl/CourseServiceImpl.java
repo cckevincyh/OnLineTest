@@ -61,4 +61,13 @@ public class CourseServiceImpl implements CourseService{
 		// TODO Auto-generated method stub
 		return courseDao.deleteCourse(course);
 	}
+
+
+
+	@Override
+	public PageBean<Course> queryCourse(Course course, int pageCode,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		return courseDao.queryCourse(course, pageCode,pageSize);
+	}
 }

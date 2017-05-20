@@ -17,4 +17,7 @@ public interface CourseDao {
 
 	public boolean deleteCourse(Course course);
 
+	public PageBean<Course> queryCourse(Course course, int pageCode,
+			int pageSize);
+
 }
