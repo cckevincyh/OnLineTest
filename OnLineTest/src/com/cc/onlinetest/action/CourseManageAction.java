@@ -131,16 +131,11 @@ public class CourseManageAction extends ActionSupport{
 		course.setCourseId(courseId);
 		Course updateCourse = courseService.getCourseById(course);//查出需要修改的课程对象
 		updateCourse.setCourseName(courseName);
-		Course course2 = courseService.getCourseByName(updateCourse);
 		int success = 0;
-		if(course2!=null){
-			success = -1;
-		}else{
-			Course newCourse = courseService.updateCourse(updateCourse);//修改该课程对象
-			if(newCourse!=null){
-				success = 1;
-				//由于是转发并且js页面刷新,所以无需重查
-			}
+		Course newCourse = courseService.updateCourse(updateCourse);//修改该课程对象
+		if(newCourse!=null){
+			success = 1;
+			//由于是转发并且js页面刷新,所以无需重查
 		}
 		try {
 			ServletActionContext.getResponse().getWriter().print(success);

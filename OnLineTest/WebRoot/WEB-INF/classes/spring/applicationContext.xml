@@ -16,4 +16,5 @@
  	<import resource="applicationContext-admin-login.xml"/>
  	<import resource="applicationContext-admin-info.xml"/>
  	<import resource="applicationContext-course-manage.xml"/>
+ 	<import resource="applicationContext-student-manage.xml"/>
  </beans>

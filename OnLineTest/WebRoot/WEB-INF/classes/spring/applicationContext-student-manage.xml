@@ -10,11 +10,27 @@
            	http://www.springframework.org/schema/context/spring-context-2.5.xsd
            	http://www.springframework.org/schema/tx 
            	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
-           	
-           	
- 	<import resource="applicationContext-db.xml"/>
- 	<import resource="applicationContext-admin-login.xml"/>
- 	<import resource="applicationContext-admin-info.xml"/>
- 	<import resource="applicationContext-course-manage.xml"/>
- 	<import resource="applicationContext-student-manage.xml"/>
+ 
+ 	
+ 	
+ 	
+ <bean id="studentDao" class="com.cc.onlinetest.dao.impl.StudentDaoImpl">
+ 		<property name="sessionFactory">
+ 			<ref bean="sessionFactory"/>
+ 		</property>
+ 	</bean>
+ 	
+ 	<bean id="studentService" class="com.cc.onlinetest.service.impl.StudentServiceImpl">
+ 		<property name="studentDao">
+ 			<ref bean="studentDao"/>
+ 		</property>
+ 	</bean>
+ 
+ 		
+ 	<bean id="studentManageAction" class="com.cc.onlinetest.action.StudentManageAction" scope="prototype">
+ 		<property name="studentService">
+ 			<ref bean="studentService"/>
+ 		</property>
+ 	</bean>
+ 	
  </beans>

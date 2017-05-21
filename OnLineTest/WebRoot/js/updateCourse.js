@@ -13,6 +13,7 @@ $(function () {
             data: {
 				courseId:$.trim($("#updateId").val()),
                 courseName: $.trim($("#updateCourseName").val()),
+				 
             },
             success: function (data) {
                 if (data == 1) {
@@ -20,8 +21,6 @@ $(function () {
 
                 } else if (data == 0) {
                     showInfo("修改失败，请重试");
-                } else if (data == -1) {
-                    showInfo("该课程已存在");
                 }else {
                     showInfo("修改失败，请重试");
                 }

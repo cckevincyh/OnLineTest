@@ -2,19 +2,20 @@ package com.cc.onlinetest.domain;
 
 public class Student {
 
-	private int studentId;
+	private String studentId;
 	private String studentName;
 	private String password;
+	
 	/**
 	 * @return the studentId
 	 */
-	public int getStudentId() {
+	public String getStudentId() {
 		return studentId;
 	}
 	/**
 	 * @param studentId the studentId to set
 	 */
-	public void setStudentId(int studentId) {
+	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
 	/**
@@ -41,10 +42,6 @@ public class Student {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	
-	
-	
 	
 	
 }
