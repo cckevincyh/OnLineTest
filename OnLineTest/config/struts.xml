@@ -16,5 +16,4 @@
    <include file="struts2/struts-course-manage.xml"></include>
    <include file="struts2/struts-student-manage.xml"></include>
    <include file="struts2/struts-teacher-manage.xml"></include>
-   <include file="struts2/struts-subject-manage.xml"></include>
 </struts>	

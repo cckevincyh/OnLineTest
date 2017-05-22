@@ -106,6 +106,7 @@ public class TeacherManageAction extends ActionSupport{
 	
 
 	public String addTeacher(){
+		System.out.println("name:"+teacherName+"id:"+teacherId+"pwd:"+password);
 		Teacher teacher = new Teacher();
 		teacher.setTeacherId(teacherId);
 		Teacher teacher2 = teacherService.getTeacherById(teacher);

@@ -173,11 +173,4 @@ public class CourseDaoImpl extends HibernateDaoSupport implements CourseDao{
 		return null;
 	}
 
-	@Override
-	public List<Course> getAllCourses() {
-		String hql= "from Course";
-		List list = this.getHibernateTemplate().find(hql);
-		return list;
-	}
-
 }

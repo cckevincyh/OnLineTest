@@ -1,7 +1,5 @@
 package com.cc.onlinetest.service;
 
-import java.util.List;
-
 import com.cc.onlinetest.domain.Course;
 import com.cc.onlinetest.domain.PageBean;
 
@@ -20,7 +18,5 @@ public interface CourseService {
 	boolean deleteCourse(Course course);
 
 	PageBean<Course> queryCourse(Course course, int pageCode, int pageSize);
-
-	List<Course> getAllCourses();
 
 }

@@ -58,10 +58,5 @@
 			<one-to-many class="com.cc.onlinetest.domain.Judge"/>
 		</set>
 		
-		
-		<many-to-one name="course" class="com.cc.onlinetest.domain.Course" lazy="false" >
-			<column name="courseId"></column>
-		</many-to-one>
-		
 	</class>
 </hibernate-mapping>
