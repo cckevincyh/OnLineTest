@@ -9,12 +9,11 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import com.cc.onlinetest.dao.CourseDao;
-import com.cc.onlinetest.domain.Course;
+import com.cc.onlinetest.dao.SubjectDao;
 import com.cc.onlinetest.domain.PageBean;
-import com.cc.onlinetest.service.CourseService;
+import com.cc.onlinetest.domain.Subject;
 
-public class CourseDaoImpl extends HibernateDaoSupport implements CourseDao{
+public class SubjectDaoImpl extends HibernateDaoSupport implements SubjectDao{
 
 	/**
      * 
@@ -39,42 +38,52 @@ public class CourseDaoImpl extends HibernateDaoSupport implements CourseDao{
         });
          
     }
-
+	
 	@Override
-	public PageBean<Course> findCourseByPage(int pageCode, int pageSize) {
-		PageBean<Course> pb = new PageBean<Course>();	//pageBean对象，用于分页
+	public PageBean<Subject> findSubjectByPage(int pageCode, int pageSize) {
+		PageBean<Subject> pb = new PageBean<Subject>();	//pageBean对象，用于分页
 		//根据传入的pageCode当前页码和pageSize页面记录数来设置pb对象
 		pb.setPageCode(pageCode);//设置当前页码
 		pb.setPageSize(pageSize);//设置页面记录数
-		List courseList = null;
+		List subjectList = null;
 		try {
-			String sql = "SELECT count(*) FROM Course";
+			String sql = "SELECT count(*) FROM Subject";
 			List list = this.getSession().createQuery(sql).list();
 			int totalRecord = Integer.parseInt(list.get(0).toString()); //得到总记录数
 			pb.setTotalRecord(totalRecord);	//设置总记录数
 			this.getSession().close();
 			
 			//不支持limit分页
-			String hql= "from Course";
+			String hql= "from Subject";
 			//分页查询
-			courseList = doSplitPage(hql,pageCode,pageSize);
+			subjectList = doSplitPage(hql,pageCode,pageSize);
 		}catch (Throwable e1) {
 			e1.printStackTrace();
 			throw new RuntimeException(e1.getMessage());
 		}
-		if(courseList!=null && courseList.size()>0){
-			pb.setBeanList(courseList);
+		if(subjectList!=null && subjectList.size()>0){
+			pb.setBeanList(subjectList);
 			return pb;
 		}
 		return null;
 	}
 
 	@Override
-	public boolean addCourse(Course course) {
+	public Subject getSubjectByName(Subject subject) {
+		String hql= "from Subject s where s.subjectName=?";
+		List list = this.getHibernateTemplate().find(hql, subject.getSubjectName());
+		if(list!=null && list.size()>0){
+			return (Subject) list.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public boolean addSubject(Subject subject) {
 		boolean b = true;
 		try{
 			this.getHibernateTemplate().clear();
-			this.getHibernateTemplate().save(course);
+			this.getHibernateTemplate().save(subject);
 			this.getHibernateTemplate().flush();
 		}catch (Throwable e1) {
 			b = false;
@@ -85,46 +94,36 @@ public class CourseDaoImpl extends HibernateDaoSupport implements CourseDao{
 	}
 
 	@Override
-	public Course getCourseByName(Course course) {
-		String hql= "from Course c where c.courseName=?";
-		List list = this.getHibernateTemplate().find(hql, course.getCourseName());
+	public Subject getSubjectById(Subject subject) {
+		String hql= "from Subject s where s.subjectId=?";
+		List list = this.getHibernateTemplate().find(hql, subject.getSubjectId());
 		if(list!=null && list.size()>0){
-			return (Course) list.get(0);
+			return (Subject) list.get(0);
 		}
 		return null;
 	}
 
 	@Override
-	public Course getCourseById(Course course) {
-		String hql= "from Course c where c.courseId=?";
-		List list = this.getHibernateTemplate().find(hql, course.getCourseId());
-		if(list!=null && list.size()>0){
-			return (Course) list.get(0);
-		}
-		return null;
-	}
-
-	@Override
-	public Course updateCourse(Course course) {
-		Course newCourse = null;
+	public Subject updateSubject(Subject updateSubject) {
+		Subject newSubject = null;
 		try{
 			this.getHibernateTemplate().clear();
 			//将传入的detached(分离的)状态的对象的属性复制到持久化对象中，并返回该持久化对象
-			newCourse = (Course) this.getHibernateTemplate().merge(course);
+			newSubject = (Subject) this.getHibernateTemplate().merge(updateSubject);
 			this.getHibernateTemplate().flush();
 		}catch (Throwable e1) {
 			e1.printStackTrace();
 			throw new RuntimeException(e1.getMessage());
 		}
-		return newCourse;
+		return newSubject;
 	}
 
 	@Override
-	public boolean deleteCourse(Course course) {
+	public boolean deleteSubject(Subject subject) {
 		boolean b = true;
 		try{
 			this.getHibernateTemplate().clear();
-			this.getHibernateTemplate().delete(course);
+			this.getHibernateTemplate().delete(subject);
 			this.getHibernateTemplate().flush();
 		}catch (Throwable e1) {
 			b = false;
@@ -135,9 +134,9 @@ public class CourseDaoImpl extends HibernateDaoSupport implements CourseDao{
 	}
 
 	@Override
-	public PageBean<Course> queryCourse(Course course, int pageCode,
+	public PageBean<Subject> querySubject(Subject subject, int pageCode,
 			int pageSize) {
-		PageBean<Course> pb = new PageBean<Course>();	//pageBean对象，用于分页
+		PageBean<Subject> pb = new PageBean<Subject>();	//pageBean对象，用于分页
 		//根据传入的pageCode当前页码和pageSize页面记录数来设置pb对象
 		pb.setPageCode(pageCode);//设置当前页码
 		pb.setPageSize(pageSize);//设置页面记录数
@@ -145,13 +144,17 @@ public class CourseDaoImpl extends HibernateDaoSupport implements CourseDao{
 		
 		StringBuilder sb = new StringBuilder();
 		StringBuilder sb_sql = new StringBuilder();
-		String sql = "SELECT count(*) FROM Course c WHERE 1=1";
-		String hql= "from Course c WHERE 1=1";
+		String sql = "SELECT count(*) FROM Subject s where 1=1 ";
+		String hql= "from Subject s where 1=1 ";
 		sb.append(hql);
 		sb_sql.append(sql);
-		if(!"".equals(course.getCourseName().trim())){
-			sb.append(" and c.courseName like '%" + course.getCourseName() +"%'");
-			sb_sql.append(" and c.courseName like '%" + course.getCourseName() +"%'");
+		if(subject.getCourse().getCourseId()!=-1){
+			sb.append(" and s.course.courseId = "+subject.getCourse().getCourseId());
+			sb_sql.append(" and s.course.courseId ="+subject.getCourse().getCourseId());
+		}
+		if(!"".equals(subject.getSubjectName().trim())){
+			sb.append(" and s.subjectName like '%" + subject.getSubjectName() +"%'");
+			sb_sql.append(" and s.subjectName  like '%" + subject.getSubjectName() +"%'");
 		}
 		try{
 			
@@ -161,9 +164,9 @@ public class CourseDaoImpl extends HibernateDaoSupport implements CourseDao{
 			this.getSession().close();
 			
 			
-			List<Course> courseList = doSplitPage(sb.toString(),pageCode,pageSize);
-			if(courseList!=null && courseList.size()>0){
-				pb.setBeanList(courseList);
+			List<Subject> subjectList = doSplitPage(sb.toString(),pageCode,pageSize);
+			if(subjectList!=null && subjectList.size()>0){
+				pb.setBeanList(subjectList);
 				return pb;
 			}
 		}catch (Throwable e1){
@@ -171,13 +174,6 @@ public class CourseDaoImpl extends HibernateDaoSupport implements CourseDao{
 			throw new RuntimeException(e1.getMessage());
 		}
 		return null;
-	}
-
-	@Override
-	public List<Course> getAllCourses() {
-		String hql= "from Course";
-		List list = this.getHibernateTemplate().find(hql);
-		return list;
 	}
 
 }

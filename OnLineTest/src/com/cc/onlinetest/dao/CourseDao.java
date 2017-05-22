@@ -1,5 +1,7 @@
 package com.cc.onlinetest.dao;
 
+import java.util.List;
+
 import com.cc.onlinetest.domain.Course;
 import com.cc.onlinetest.domain.PageBean;
 
@@ -19,5 +21,7 @@ public interface CourseDao {
 
 	public PageBean<Course> queryCourse(Course course, int pageCode,
 			int pageSize);
+
+	public List<Course> getAllCourses();
 
 }
