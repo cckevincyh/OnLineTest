@@ -36,10 +36,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="collapse navbar-collapse main-navbar-collapse">
-                        <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/admin.jsp"><strong>欢迎使用图书馆管理系统</strong></a>
+                        <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/admin.jsp"><strong>欢迎使用在线考试系统</strong></a>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您， <s:property value="#session.admin.name"/> <i class="caret"></i></a>
+                                <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您， <s:property value="#session.admin.username"/> <i class="caret"></i></a>
                             
                                  <ul class="dropdown-menu">
                                       <li><a href="#updatepwd" data-toggle="modal">修改密码</a></li>
@@ -65,7 +65,7 @@
                         <a href="${pageContext.request.contextPath}/admin/studentManageAction_findStudentByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 学生管理</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/admin/bookTypeManageAction_findBookTypeByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 教师管理</a>
+                        <a href="${pageContext.request.contextPath}/admin/teacherManageAction_findTeacherByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 教师管理</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/admin/courseManageAction_findCourseByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 课程管理</a>

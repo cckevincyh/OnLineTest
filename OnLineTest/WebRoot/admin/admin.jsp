@@ -62,7 +62,7 @@
                         <a href="${pageContext.request.contextPath}/admin/studentManageAction_findStudentByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 学生管理</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/admin/bookTypeManageAction_findBookTypeByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 教师管理</a>
+                        <a href="${pageContext.request.contextPath}/admin/teacherManageAction_findTeacherByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 教师管理</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/admin/courseManageAction_findCourseByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 课程管理</a>

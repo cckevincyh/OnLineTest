@@ -99,9 +99,9 @@ public class StudentManageAction extends ActionSupport{
 	public String addStudent(){
 		Student student = new Student();
 		student.setStudentId(studentId);
-		Student admin2 = studentService.getStudentById(student);
+		Student student2 = studentService.getStudentById(student);
 		int success = 0;
-		if(admin2!=null){
+		if(student2!=null){
 			success = -1;//已经存在该学号
 		}else{
 			student.setStudentName(studentName);

@@ -7,7 +7,7 @@
 <html lang="zh-CN" class="ax-vertical-centered">
 <head>
 <meta charset="UTF-8">
-<title>在线考试系统后台</title>
+<title>在线考试系统</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
@@ -22,11 +22,10 @@
 
 
 <script src="${pageContext.request.contextPath}/js/adminUpdatePwd.js"></script>
-<script src="${pageContext.request.contextPath}/js/addCourse.js"></script>
-<script src="${pageContext.request.contextPath}/js/updateCourse.js"></script>
-<script src="${pageContext.request.contextPath}/js/deleteCourse.js"></script>
+<script src="${pageContext.request.contextPath}/js/addTeacher.js"></script>
+<script src="${pageContext.request.contextPath}/js/updateTeacher.js"></script>
+<script src="${pageContext.request.contextPath}/js/deleteTeacher.js"></script>
 </head>
-
 
 
 
@@ -43,7 +42,7 @@
                                 <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您， <s:property value="#session.admin.username"/> <i class="caret"></i></a>
                             
                                  <ul class="dropdown-menu">
-                                    <li><a href="#updatepwd" data-toggle="modal">修改密码</a></li>
+                                      <li><a href="#updatepwd" data-toggle="modal">修改密码</a></li>
                                      <li role="presentation" class="divider"></li>
                                     <li><a href="${pageContext.request.contextPath}/adminLoginAction_logout.action">退出</a></li>
                                 </ul>
@@ -65,48 +64,60 @@
                     <li>
                         <a href="${pageContext.request.contextPath}/admin/studentManageAction_findStudentByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 学生管理</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="${pageContext.request.contextPath}/admin/teacherManageAction_findTeacherByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 教师管理</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="${pageContext.request.contextPath}/admin/courseManageAction_findCourseByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 课程管理</a>
                     </li>
                    
                 </ul>
             </div>
 
-           <!-- content -->
-            <div class="col-md-10">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default bootstrap-admin-no-table-panel">
-                            <div class="panel-heading">
-                                <div class="text-muted bootstrap-admin-box-title">查询</div>
-                            </div>
-                            <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
-                                <form class="form-horizontal" action="${pageContext.request.contextPath}/admin/courseManageAction_queryCourse.action" method="post">
-                                    <div class="col-lg-5 form-group">
-                                        <label class="col-lg-4 control-label" for="query_ano">课程名称</label>
-                                        <div class="col-lg-8">
-                                            <input class="form-control" type="text" id="courseName" name="courseName">
-                                            <label class="control-label" for="courseName" style="display: none;"></label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 form-group">
+		  <!-- content -->
+		            <div class="col-md-10">
+		                <div class="row">
+		                    <div class="col-lg-12">
+		                        <div class="panel panel-default bootstrap-admin-no-table-panel">
+		                            <div class="panel-heading">
+		                                <div class="text-muted bootstrap-admin-box-title">查询</div>
+		                            </div>
+		                            <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
+		                                <form class="form-horizontal" action="${pageContext.request.contextPath}/admin/teacherManageAction_queryTeacher.action" method="post">
+		                                    <div class="col-lg-5 form-group">
+		                                        <label class="col-lg-4 control-label" for="query_sno">证件号</label>
+		                                        <div class="col-lg-8">
+		                                            <input class="form-control" id="teacherId" type="text" value="" name="teacherId">
+		                                            <label class="control-label" for="teacherId" style="display: none;"></label>
+		                                        </div>
+		                                    </div>
+		                                    <div class="col-lg-5 form-group">
+		                                        <label class="col-lg-4 control-label" for="query_sname">姓名</label>
+		                                        <div class="col-lg-8">
+		                                            <input class="form-control" id="teacherName" name="teacherName"  type="text" value="">
+		                                            <label class="control-label" for="teacherName" style="display: none;"></label>
+		                                        </div>
+		                                    </div>
+		                                    
+		                                   
+										 <div class="col-lg-2 form-group">
                                         <button type="submit" class="btn btn-primary" id="btn_query" onclick="query()">查询</button>
                                         <button type="button" class="btn btn-primary" id="btn_add" data-toggle="modal" data-target="#addModal">添加</button>          
                                     </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
+		                               
+		                               
+		                                </form>
+		                            </div>
+		                        </div>
+		                    </div>
+						   </div>            
+			<div class="row">
                     <div class="col-lg-12">
                         <table id="data_list" class="table table-hover table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>课程名称</th>
+                                <th>教师职工号</th>
+                                <th>教师姓名</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -114,19 +125,22 @@
                             
                             <!---在此插入信息-->
                             <s:if test="#request.pb.beanList!=null">
-                            <s:iterator value="#request.pb.beanList" var="course">    
+                            <s:iterator value="#request.pb.beanList" var="teacher">
                              <tbody>
-	                         	   <td><s:property value="#course.courseName"/></td>
+	                         	   <td><s:property value="#teacher.teacherId"/></td>
+	                                <td><s:property value="#teacher.teacherName"/></td>
 	                                <td>
-	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateModal" onclick="updateCourse(<s:property value="#course.courseId"/>)">修改</button>
-	                                	<button type="button" class="btn btn-danger btn-xs" onclick="deleteCourse(<s:property value="#course.courseId"/>)">删除</button>
+	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateModal" onclick="updateTeacher(<s:property value="#teacher.teacherId"/>)">修改</button>
+	                                	<button type="button" class="btn btn-danger btn-xs" onclick="deleteTeacher(<s:property value="#teacher.teacherId"/>)">删除</button>
+	                                		
 	                               	</td>                                              
-                          	  </tbody>                  	
+                          	  </tbody>
                             </s:iterator>
                             </s:if>
                             <s:else>
                             	<tbody>
 	                         	   	<td>暂无数据</td>
+	                                <td>暂无数据</td>
 	                                <td>暂无数据</td>
                           	  </tbody>
                             </s:else>
@@ -168,8 +182,8 @@
                         <div class="pull-right"><!--右对齐--->
                            <ul class="pagination">
                            <li class="disabled"><a href="#">第<s:property value="#request.pb.pageCode"/>页/共<s:property value="#request.pb.totaPage"/>页</a></li>
-                           <li><a href="${pageContext.request.contextPath}/admin/courseManageAction_${pb.url }pageCode=1">首页</a></li>
-                           <li><a href="${pageContext.request.contextPath}/admin/courseManageAction_${pb.url }pageCode=${pb.pageCode-1 }">&laquo;</a></li><!-- 上一页 -->
+                           <li><a href="${pageContext.request.contextPath}/admin/teacherManageAction_${pb.url }pageCode=1">首页</a></li>
+                           <li><a href="${pageContext.request.contextPath}/admin/teacherManageAction_${pb.url }pageCode=${pb.pageCode-1 }">&laquo;</a></li><!-- 上一页 -->
                            <%-- 循环显示页码列表 --%>
 								<c:forEach begin="${begin }" end="${end }" var="i">
 								  <c:choose>
@@ -178,33 +192,27 @@
 								  			<li class="active"><a>${i }</a><li>							 
 								  	</c:when>
 								  	<c:otherwise>
-								  		<li><a href="${pageContext.request.contextPath}/admin/courseManageAction_${pb.url }pageCode=${i}">${i}</a></li>
+								  		<li><a href="${pageContext.request.contextPath}/admin/teacherManageAction_${pb.url }pageCode=${i}">${i}</a></li>
 								  	</c:otherwise>
 								  </c:choose>
 								</c:forEach>
 				        	   <%--如果当前页数没到总页数，即没到最后一页,则需要显示下一页 --%>
 							  <c:if test="${pb.pageCode < pb.totaPage }">
-								  <li><a href="${pageContext.request.contextPath}/admin/courseManageAction_${pb.url }pageCode=${pb.pageCode+1}">&raquo;</a></li>
+								  <li><a href="${pageContext.request.contextPath}/admin/teacherManageAction_${pb.url }pageCode=${pb.pageCode+1}">&raquo;</a></li>
 							</c:if>
 							<%--否则显示尾页 --%>
-							<li><a href="${pageContext.request.contextPath}/admin/courseManageAction_${pb.url }pageCode=${pb.totaPage}">尾页</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/teacherManageAction_${pb.url }pageCode=${pb.totaPage}">尾页</a></li>
 							</ul>
                            </div>
                     </s:if>           
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+	
+                
+                
+                
+                
     
     
      <!--------------------------------------添加的模糊框------------------------>  
@@ -218,26 +226,44 @@
 														&times;
 													</button>
 													<h4 class="modal-title" id="myModalLabel">
-														添加新的课程
+														添加新教师
 													</h4>
 												</div>
 												<div class="modal-body">
 												
 										<!---------------------表单-------------------->
 										 <div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">课程名称</label>
+											<label for="firstname" class="col-sm-3 control-label">教师职工号</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="addCourseName"  placeholder="请输入课程名称">
-												<label class="control-label" for="addCourseName" style="display:none;"></label>
+													<input type="text" class="form-control" id="addTeacherId"  placeholder="请输入教师职工号">
+												 <label class="control-label" for="addTeacherId" style="display: none;"></label>
 												</div>
 										</div>
 											
+					
+											
+										<div class="form-group">	
+											<label for="firstname" class="col-sm-3 control-label">姓名</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control" id="addTeacherName"  placeholder="请输入教师姓名">
+												 <label class="control-label" for="addTeacherName" style="display: none;"></label>
+												</div>
+										</div>
+										
+										<div class="form-group">	
+											<label for="firstname" class="col-sm-3 control-label">密码</label>
+											<div class="col-sm-7">
+												<input type="password" class="form-control" id="addPwd"  placeholder="请输入密码">
+												 <label class="control-label" for="addPwd" style="display: none;"></label>
+											</div>
+										</div>
+										
 										<!---------------------表单-------------------->
 									</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 													</button>
-													<button type="button" class="btn btn-primary" id="addCourse">
+													<button type="button" class="btn btn-primary" id="addTeacher">
 														添加
 													</button>
 												</div>
@@ -265,7 +291,7 @@
 														&times;
 													</button>
 													<h4 class="modal-title" id="updateModalLabel">
-														修改课程
+														修改教师信息
 													</h4>
 												</div>
 												<div class="modal-body">
@@ -273,14 +299,31 @@
 										<!---------------------表单-------------------->
 											
 										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">课程名称</label>
+											<label for="firstname" class="col-sm-3 control-label">教师职工号</label>
 												<div class="col-sm-7">
-													<input type="hidden" id="updateId">
-													<input type="text" class="form-control" id="updateCourseName">
-												<label class="control-label" for="updateCourseName" style="display:none;"></label>
+													<input type="text" class="form-control" id="updateTeacherId" placeholder="请输入教师职工号" readonly="readonly">
+												 <label class="control-label" for="updateTeacherId" style="display: none;"></label>
 												</div>
 										</div>
 											
+										<div class="form-group">	
+											<label for="firstname" class="col-sm-3 control-label">姓名</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control" id="updateTeacherName"  placeholder="请输入教师姓名">
+												<label class="control-label" for="updateTeacherName" style="display: none;"></label>
+												</div>
+										</div>
+										
+										
+										<div class="form-group">	
+											<label for="firstname" class="col-sm-3 control-label">密码</label>
+											<div class="col-sm-7">
+												<input type="password" class="form-control" id="updatePwd"  placeholder="请输入密码">
+												<label class="control-label" for="updatePwd" style="display: none;"></label>
+											</div>
+										</div>
+										
+										
 										
 										<!---------------------表单-------------------->
 															
@@ -288,7 +331,7 @@
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 													</button>
-													<button type="button" class="btn btn-primary" id="updateCourse">
+													<button type="button" class="btn btn-primary" id="updateTeacher">
 														修改
 													</button>
 												</div>
@@ -331,7 +374,7 @@
 								<label for="firstname" class="col-sm-3 control-label">原密码</label>
 								<div class="col-sm-7">
 									<input type="password" class="form-control" id="oldPwd"  placeholder="请输入原密码">
-										<label class="control-label" for="oldPwd" style="display:none;"></label>		
+										<label class="control-label" for="oldPwd" style="display: none;"></label>		
 								</div>
 							</div>	
 							
@@ -339,7 +382,7 @@
 								<label for="firstname" class="col-sm-3 control-label">新密码</label>
 								<div class="col-sm-7">
 									<input type="password" class="form-control" id="newPwd"  placeholder="请输入新密码">
-										<label class="control-label" for="newPwd" style="display:none;"></label>			
+											<label class="control-label" for="newPwd" style="display: none;"></label>				
 								</div>
 							</div>	
 							
@@ -347,7 +390,7 @@
 								<label for="firstname" class="col-sm-3 control-label">确认密码</label>
 								<div class="col-sm-7">
 									<input type="password" class="form-control" id="confirmPwd"  placeholder="请输入确认密码">
-										<label class="control-label" for="confirmPwd" style="display:none;"></label>			
+												<label class="control-label" for="confirmPwd" style="display: none;"></label>	
 								</div>
 							</div>	
 								<!--正文-->
@@ -369,6 +412,16 @@
                                    <!-------------------------------------------------------------->
                                    
                                    
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+    
+    
+    
+    
 				    <div class="modal fade" id="modal_info" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
 				    <div class="modal-dialog" role="document">
 				        <div class="modal-content">
