@@ -1,5 +1,7 @@
 package com.cc.onlinetest.service.impl;
 
+import java.util.List;
+
 import com.cc.onlinetest.dao.AdminDao;
 import com.cc.onlinetest.dao.CourseDao;
 import com.cc.onlinetest.domain.Course;
@@ -69,5 +71,13 @@ public class CourseServiceImpl implements CourseService{
 			int pageSize) {
 		// TODO Auto-generated method stub
 		return courseDao.queryCourse(course, pageCode,pageSize);
+	}
+
+
+
+	@Override
+	public List<Course> getAllCourses() {
+		// TODO Auto-generated method stub
+		return courseDao.getAllCourses();
 	}
 }

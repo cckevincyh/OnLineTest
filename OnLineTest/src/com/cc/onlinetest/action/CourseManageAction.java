@@ -1,9 +1,12 @@
 package com.cc.onlinetest.action;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.PropertyFilter;
@@ -192,5 +195,32 @@ public class CourseManageAction extends ActionSupport{
 
 		ServletActionContext.getRequest().setAttribute("pb", pb);
 		return "success";
+	}
+	
+	
+	
+	public String getAllCourses(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("application/json;charset=utf-8");
+		List<Course> allCourses = courseService.getAllCourses();
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setJsonPropertyFilter(new PropertyFilter() {
+		    public boolean apply(Object obj, String name, Object value) {
+			if(obj instanceof Set||name.equals("subjects")){//过滤掉集合
+				return true;
+			}else{
+				return false;
+			}
+		   }
+		});
+		
+		
+		String json = JSONArray.fromObject(allCourses,jsonConfig).toString();//List------->JSONArray
+		try {
+			response.getWriter().print(json);
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		return null;
 	}
 }
