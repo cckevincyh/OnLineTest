@@ -166,7 +166,7 @@ public class SubjectManageAction extends ActionSupport{
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.setJsonPropertyFilter(new PropertyFilter() {
 		    public boolean apply(Object obj, String name, Object value) {
-			if(obj instanceof Set||name.equals("subjects")){//过滤掉集合
+			if(obj instanceof Set||name.equals("subjects") || name.equals("choices") || name.equals("judges")){//过滤掉集合
 				return true;
 			}else{
 				return false;
@@ -247,13 +247,22 @@ public class SubjectManageAction extends ActionSupport{
 			subject.setCourse(course);
 			pb = subjectService.querySubject(subject,pageCode,pageSize);
 			
-		}
+		} 
 		if(pb!=null){
 			pb.setUrl("querySubject.action?courseId="+courseId+"&subjectName="+subjectName+"&");
 		}
 
 		ServletActionContext.getRequest().setAttribute("pb", pb);
 		return "success";
+	}
+	
+	
+	public String questionManage(){
+		Subject subject = new Subject();
+		subject.setSubjectId(subjectId);
+		Subject newSubject = subjectService.getSubjectById(subject);
+		ServletActionContext.getRequest().setAttribute("subject", newSubject);
+		return "question";
 	}
 	
 }

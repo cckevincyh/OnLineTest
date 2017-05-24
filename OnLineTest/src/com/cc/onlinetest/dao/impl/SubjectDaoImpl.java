@@ -176,4 +176,58 @@ public class SubjectDaoImpl extends HibernateDaoSupport implements SubjectDao{
 		return null;
 	}
 
+	@Override
+	public boolean setChoiceNum(Subject subject) {
+		Subject updateSubject = getSubjectById(subject);
+		updateSubject.setChoiceNum(updateSubject.getChoices().size());
+		boolean b = true;
+		try{
+			this.getHibernateTemplate().clear();
+			//将传入的detached(分离的)状态的对象的属性复制到持久化对象中，并返回该持久化对象
+			this.getHibernateTemplate().merge(updateSubject);
+			this.getHibernateTemplate().flush();
+		}catch (Throwable e1) {
+			b = false;
+			e1.printStackTrace();
+			throw new RuntimeException(e1.getMessage());
+		}
+		return b;
+	}
+
+	@Override
+	public boolean setJudgeNum(Subject subject) {
+		Subject updateSubject = getSubjectById(subject);
+		updateSubject.setJudgeNum(updateSubject.getJudges().size());
+		boolean b = true;
+		try{
+			this.getHibernateTemplate().clear();
+			//将传入的detached(分离的)状态的对象的属性复制到持久化对象中，并返回该持久化对象
+			this.getHibernateTemplate().merge(updateSubject);
+			this.getHibernateTemplate().flush();
+		}catch (Throwable e1) {
+			b = false;
+			e1.printStackTrace();
+			throw new RuntimeException(e1.getMessage());
+		}
+		return b;
+	}
+
+	@Override
+	public boolean setAllScore(Subject subject) {
+		Subject updateSubject = getSubjectById(subject);
+		updateSubject.setAllScore(updateSubject.getChoiceScore()*updateSubject.getChoices().size()+updateSubject.getJudgeScore()*updateSubject.getJudges().size());
+		boolean b = true;
+		try{
+			this.getHibernateTemplate().clear();
+			//将传入的detached(分离的)状态的对象的属性复制到持久化对象中，并返回该持久化对象
+			this.getHibernateTemplate().merge(updateSubject);
+			this.getHibernateTemplate().flush();
+		}catch (Throwable e1) {
+			b = false;
+			e1.printStackTrace();
+			throw new RuntimeException(e1.getMessage());
+		}
+		return b;
+	}
+
 }

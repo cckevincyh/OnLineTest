@@ -19,4 +19,5 @@
  	<import resource="applicationContext-student-manage.xml"/>
  	<import resource="applicationContext-teacher-manage.xml"/>
  	<import resource="applicationContext-subject-manage.xml"/>
+ 	<import resource="applicationContext-question-manage.xml"/>
  </beans>

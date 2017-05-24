@@ -6,6 +6,7 @@
   <package name="subjectManage" extends="struts-default" namespace="/teacher">
   	<action name="subjectManageAction_*" method="{1}" class="subjectManageAction">
   		<result name="success">/WEB-INF/teacher/subjectManage.jsp</result>
+  		<result name="question">/WEB-INF/teacher/questionManage.jsp</result>
   	</action>
   </package>
   

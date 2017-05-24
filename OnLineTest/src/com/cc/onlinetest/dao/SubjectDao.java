@@ -19,4 +19,9 @@ public interface SubjectDao {
 
 	PageBean<Subject> querySubject(Subject subject, int pageCode, int pageSize);
 
+	boolean setChoiceNum(Subject subject);
+
+	boolean setJudgeNum(Subject subject);
+
+	boolean setAllScore(Subject subject);
 }

@@ -128,12 +128,15 @@
 	                         	   <td><s:property value="#subject.subjectName"/></td>
 	                         	   <td><s:property value="#subject.course.courseName"/></td>
 	                         	   <td><s:property value="#subject.subjectTime"/></td>
-	                                <td>
-	                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findModal" onclick="getSubject(<s:property value="#subject.subjectId"/>)" >查看</button>
-	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateModal" onclick="updateSubject(<s:property value="#subject.subjectId"/>)">修改</button>
-	                                	<button type="button" class="btn btn-danger btn-xs" onclick="deleteSubject(<s:property value="#subject.subjectId"/>)">删除</button>
-	                                	<button type="button" class="btn btn-success btn-xs" onclick="addBookNum(<s:property value="#book.bookId"/>,<s:property value="#book.ISBN"/>)"  data-toggle="modal" data-target="#addNumModal">添加试题</button>
-	                               	</td>                                              
+	                         	   <form class="form-horizontal" action="${pageContext.request.contextPath}/teacher/subjectManageAction_questionManage.action" method="post">
+		                                <td>
+		                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findModal" onclick="getSubject(<s:property value="#subject.subjectId"/>)" >查看</button>
+		                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateModal" onclick="updateSubject(<s:property value="#subject.subjectId"/>)">修改</button>
+		                                	<button type="button" class="btn btn-danger btn-xs" onclick="deleteSubject(<s:property value="#subject.subjectId"/>)">删除</button>
+		                                	<input type="hidden" name="subjectId" value="<s:property value="#subject.subjectId"/>"/>
+		                                	<input type="submit" class="btn btn-success btn-xs" value="试题"/>
+		                               	</td>              
+	                               	</form>                                
                           	  </tbody>                  	
                             </s:iterator>
                             </s:if>
