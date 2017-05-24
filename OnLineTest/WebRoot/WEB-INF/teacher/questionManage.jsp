@@ -23,6 +23,8 @@
 
 <script src="${pageContext.request.contextPath}/js/addChoice.js"></script>
 <script src="${pageContext.request.contextPath}/js/addJudge.js"></script>
+<script src="${pageContext.request.contextPath}/js/getChoice.js"></script>
+<script src="${pageContext.request.contextPath}/js/getJudge.js"></script>
 </head>
 
 
@@ -110,9 +112,9 @@
 	                         	   <td>单选题</td>
 	                         	   <td><s:property value="#request.subject.choiceScore"/></td>
 	                                <td>
-	                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findChoiceModal" onclick="getSubject(<s:property value="#subject.subjectId"/>)" >查看</button>
-	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateChoiceModal" onclick="updateSubject(<s:property value="#subject.subjectId"/>)">修改</button>
-	                                	<button type="button" class="btn btn-danger btn-xs" onclick="deleteSubject(<s:property value="#subject.subjectId"/>)">删除</button>
+	                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findChoiceModal" onclick="getChoice(<s:property value="#choices.choiceId"/>)" >查看</button>
+	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateChoiceModal" onclick="updateChoice(<s:property value="#choices.choiceId"/>)">修改</button>
+	                                	<button type="button" class="btn btn-danger btn-xs" onclick="deleteChoice(<s:property value="#choices.choiceId"/>)">删除</button>
 	                               	</td>                                              
                           	  </tbody>                  	
                             </s:iterator>
@@ -122,9 +124,9 @@
 	                         	   <td>判断题</td>
 	                         	   <td><s:property value="#request.subject.judgeScore"/></td>
 	                                <td>
-	                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findJudgeModal" onclick="getSubject(<s:property value="#subject.subjectId"/>)" >查看</button>
-	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateJudgeModal" onclick="updateSubject(<s:property value="#subject.subjectId"/>)">修改</button>
-	                                	<button type="button" class="btn btn-danger btn-xs" onclick="deleteSubject(<s:property value="#subject.subjectId"/>)">删除</button>
+	                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findJudgeModal" onclick="getJudge(<s:property value="#judges.judgeId"/>)" >查看</button>
+	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateJudgeModal" onclick="updateJudge(<s:property value="#judges.judgeId"/>)">修改</button>
+	                                	<button type="button" class="btn btn-danger btn-xs" onclick="deleteJudge(<s:property value="#judges.judgeId"/>)">删除</button>
 	                               	</td>                                              
                           	  </tbody>                  	
                             </s:iterator>
@@ -547,6 +549,23 @@
 												
 										<!---------------------表单-------------------->
 										 <div class="form-group">
+											<label for="firstname" class="col-sm-3 control-label">所属课程</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control" id="findChoice_course" readonly="readonly">
+												<label class="control-label" for="findChoice_course" style="display:none;"></label>
+												</div>
+										</div>
+										
+										 <div class="form-group">
+											<label for="firstname" class="col-sm-3 control-label">所属试卷</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control" id="findChoice_subject" readonly="readonly">
+												<label class="control-label" for="findChoice_subject" style="display:none;"></label>
+												</div>
+										</div>
+										
+										
+										 <div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">问题</label>
 												<div class="col-sm-7">
 													<input type="text" class="form-control" id="findChoice_question" readonly="readonly">
@@ -638,6 +657,22 @@
 												
 										<!---------------------表单-------------------->
 										 <div class="form-group">
+											<label for="firstname" class="col-sm-3 control-label">所属课程</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control" id="findJudge_course" readonly="readonly">
+												<label class="control-label" for="findJudge_course" style="display:none;"></label>
+												</div>
+										</div>
+										
+										 <div class="form-group">
+											<label for="firstname" class="col-sm-3 control-label">所属试卷</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control" id="findJudge_subject" readonly="readonly">
+												<label class="control-label" for="findJudge_subject" style="display:none;"></label>
+												</div>
+										</div>
+										
+										 <div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">问题</label>
 												<div class="col-sm-7">
 													<input type="text" class="form-control" id="findJudge_question" readonly="readonly">
@@ -651,7 +686,7 @@
 										<div class="form-group">	
 											<label for="firstname" class="col-sm-3 control-label">正确答案</label>
 											<div class="col-sm-7">
-													<input type="text" class="form-control" id="findChoice_answer" readonly="readonly">
+													<input type="text" class="form-control" id="findJudge_answer" readonly="readonly">
 													<label class="control-label" for="findJudge_answer" style="display:none;"></label>
 											</div>
 										</div>

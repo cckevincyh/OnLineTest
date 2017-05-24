@@ -1,6 +1,13 @@
 package com.cc.onlinetest.action;
 
 import java.io.IOException;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.PropertyFilter;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -29,8 +36,25 @@ public class QuestionManageAction extends ActionSupport{
 	private String optionC;
 	private String optionD;
 	private String answer;
+	private int choiceId;
+	private int judgeId;
 	
 	
+	
+	/**
+	 * @param choiceId the choiceId to set
+	 */
+	public void setChoiceId(int choiceId) {
+		this.choiceId = choiceId;
+	}
+
+	/**
+	 * @param judgeId the judgeId to set
+	 */
+	public void setJudgeId(int judgeId) {
+		this.judgeId = judgeId;
+	}
+
 	/**
 	 * @param question the question to set
 	 */
@@ -134,6 +158,62 @@ public class QuestionManageAction extends ActionSupport{
 			ServletActionContext.getResponse().getWriter().print(success);//向浏览器响应是否成功的状态码
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			throw new RuntimeException(e.getMessage());
+		}
+		return null;
+	}
+	
+	
+	
+	public String getChoice(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("application/json;charset=utf-8");
+		Choice choice = new Choice();
+		choice.setChoiceId(choiceId);
+		Choice newChoice = questionService.getChoiceById(choice);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setJsonPropertyFilter(new PropertyFilter() {
+		    public boolean apply(Object obj, String name, Object value) {
+			if(obj instanceof Set||name.equals("subjects") || name.equals("choices") || name.equals("judges")){//过滤掉集合
+				return true;
+			}else{
+				return false;
+			}
+		   }
+		});
+		
+		JSONObject jsonObject = JSONObject.fromObject(newChoice,jsonConfig);
+		try {
+			response.getWriter().print(jsonObject);
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		return null;
+	}
+	
+	
+	
+	public String getJudge(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("application/json;charset=utf-8");
+		Judge judge = new Judge();
+		judge.setJudgeId(judgeId);
+		Judge newJudge = questionService.getJudgeById(judge);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setJsonPropertyFilter(new PropertyFilter() {
+		    public boolean apply(Object obj, String name, Object value) {
+			if(obj instanceof Set||name.equals("subjects") || name.equals("choices") || name.equals("judges")){//过滤掉集合
+				return true;
+			}else{
+				return false;
+			}
+		   }
+		});
+		
+		JSONObject jsonObject = JSONObject.fromObject(newJudge,jsonConfig);
+		try {
+			response.getWriter().print(jsonObject);
+		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage());
 		}
 		return null;

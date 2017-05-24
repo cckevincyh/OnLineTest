@@ -10,6 +10,8 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.cc.onlinetest.dao.SubjectDao;
+import com.cc.onlinetest.domain.Choice;
+import com.cc.onlinetest.domain.Judge;
 import com.cc.onlinetest.domain.PageBean;
 import com.cc.onlinetest.domain.Subject;
 
@@ -229,5 +231,6 @@ public class SubjectDaoImpl extends HibernateDaoSupport implements SubjectDao{
 		}
 		return b;
 	}
+
 
 }

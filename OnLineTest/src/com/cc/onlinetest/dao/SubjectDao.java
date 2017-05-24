@@ -1,5 +1,7 @@
 package com.cc.onlinetest.dao;
 
+import com.cc.onlinetest.domain.Choice;
+import com.cc.onlinetest.domain.Judge;
 import com.cc.onlinetest.domain.PageBean;
 import com.cc.onlinetest.domain.Subject;
 
@@ -24,4 +26,5 @@ public interface SubjectDao {
 	boolean setJudgeNum(Subject subject);
 
 	boolean setAllScore(Subject subject);
+
 }

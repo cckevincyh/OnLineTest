@@ -9,4 +9,8 @@ public interface QuestionDao {
 
 	boolean addJudge(Judge judge);
 
+	Choice getChoiceById(Choice choice);
+
+	Judge getJudgeById(Judge judge);
+
 }

@@ -47,6 +47,18 @@ public class QuestionServiceImpl implements QuestionService{
 		return b;
 	}
 
+	@Override
+	public Choice getChoiceById(Choice choice) {
+		// TODO Auto-generated method stub
+		return questionDao.getChoiceById(choice);
+	}
+
+	@Override
+	public Judge getJudgeById(Judge judge) {
+		// TODO Auto-generated method stub
+		return questionDao.getJudgeById(judge);
+	}
+
 	
 
 	
