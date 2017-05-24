@@ -27,6 +27,8 @@
 <script src="${pageContext.request.contextPath}/js/getJudge.js"></script>
 <script src="${pageContext.request.contextPath}/js/updateChoice.js"></script>
 <script src="${pageContext.request.contextPath}/js/updateJudge.js"></script>
+<script src="${pageContext.request.contextPath}/js/deleteChoice.js"></script>
+<script src="${pageContext.request.contextPath}/js/deleteJudge.js"></script>
 </head>
 
 

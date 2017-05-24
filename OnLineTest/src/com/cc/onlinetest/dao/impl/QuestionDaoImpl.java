@@ -92,4 +92,34 @@ public class QuestionDaoImpl extends HibernateDaoSupport implements QuestionDao{
 		return newJudge;
 	}
 
+	@Override
+	public boolean deleteChoice(Choice choice) {
+		boolean b = true;
+		try{
+			this.getHibernateTemplate().clear();
+			this.getHibernateTemplate().delete(choice);
+			this.getHibernateTemplate().flush();
+		}catch (Throwable e1) {
+			b = false;
+			e1.printStackTrace();
+			throw new RuntimeException(e1.getMessage());
+		}
+		return b;
+	}
+
+	@Override
+	public boolean deleteJudge(Judge judge) {
+		boolean b = true;
+		try{
+			this.getHibernateTemplate().clear();
+			this.getHibernateTemplate().delete(judge);
+			this.getHibernateTemplate().flush();
+		}catch (Throwable e1) {
+			b = false;
+			e1.printStackTrace();
+			throw new RuntimeException(e1.getMessage());
+		}
+		return b;
+	}
+
 }

@@ -17,4 +17,8 @@ public interface QuestionDao {
 
 	Judge updateJudge(Judge judgeById);
 
+	boolean deleteChoice(Choice choice);
+
+	boolean deleteJudge(Judge judge);
+
 }

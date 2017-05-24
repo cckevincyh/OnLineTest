@@ -273,4 +273,48 @@ public class QuestionManageAction extends ActionSupport{
 		return null;
 	}
 	
+	
+	public String deleteChoice(){
+		Choice choice = new Choice();
+		choice.setChoiceId(choiceId);
+		boolean deleteChoice = questionService.deleteChoice(choice);
+		int success = 0;
+		if(deleteChoice){
+			success = 1;
+			//由于是转发并且js页面刷新,所以无需重查
+		}
+		try {
+			ServletActionContext.getResponse().getWriter().print(success);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(e.getMessage());
+		}
+		
+		return null;
+	}
+	
+	
+	public String deleteJudge(){
+		Judge judge = new Judge();
+		judge.setJudgeId(judgeId);
+		boolean deleteJudge = questionService.deleteJudge(judge);
+		int success = 0;
+		if(deleteJudge){
+			success = 1;
+			//由于是转发并且js页面刷新,所以无需重查
+		}
+		try {
+			ServletActionContext.getResponse().getWriter().print(success);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(e.getMessage());
+		}
+		
+		return null;
+	}
+	
+	
+	
+	
+	
 }
