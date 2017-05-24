@@ -13,4 +13,8 @@ public interface QuestionService {
 
 	Judge getJudgeById(Judge judge);
 
+	Choice updateChoice(Choice choice);
+
+	Judge updateJudge(Judge judgeById);
+
 }

@@ -44,7 +44,10 @@ public class SubjectServiceImpl implements SubjectService{
 	@Override
 	public Subject updateSubject(Subject updateSubject) {
 		// TODO Auto-generated method stub
-		return subjectDao.updateSubject(updateSubject);
+		Subject subject = subjectDao.updateSubject(updateSubject);
+		//同时需要修改总分
+		subjectDao.setAllScore(subject);
+		return subject;
 	}
 
 	@Override

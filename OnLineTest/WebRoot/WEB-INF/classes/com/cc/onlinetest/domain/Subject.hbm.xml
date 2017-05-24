@@ -41,7 +41,7 @@
 			<column name="subjectName" />
 		</property>
 		
-		<set name="choices"  lazy="false" inverse="true">
+		<set name="choices"  lazy="false" inverse="true" order-by="choiceId">
 			<key>
 				<column name="subjectId" ></column>
 			</key>
@@ -50,7 +50,7 @@
 		</set>
 		
 		
-		<set name="judges"  lazy="false" inverse="true">
+		<set name="judges"  lazy="false" inverse="true" order-by="judgeId">
 			<key>
 				<column name="subjectId" ></column>
 			</key>

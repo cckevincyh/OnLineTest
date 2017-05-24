@@ -25,6 +25,8 @@
 <script src="${pageContext.request.contextPath}/js/addJudge.js"></script>
 <script src="${pageContext.request.contextPath}/js/getChoice.js"></script>
 <script src="${pageContext.request.contextPath}/js/getJudge.js"></script>
+<script src="${pageContext.request.contextPath}/js/updateChoice.js"></script>
+<script src="${pageContext.request.contextPath}/js/updateJudge.js"></script>
 </head>
 
 
@@ -331,7 +333,7 @@
 										 <div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">问题</label>
 												<div class="col-sm-7">
-												<input type="hidden" class="form-control" id="updateSubjectId" value="<s:property value="#request.subject.subjectId"/>">
+												<input type="hidden" class="form-control" id="updateChoiceId">
 													<input type="text" class="form-control" id="updateChoice_question"  placeholder="请输入选择题问题">
 												<label class="control-label" for="updateChoice_question" style="display:none;"></label>
 												</div>
@@ -428,6 +430,7 @@
 										 <div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">问题</label>
 												<div class="col-sm-7">
+												<input type="hidden" class="form-control" id="updateJudgeId" >
 													<input type="text" class="form-control" id="updateJudge_question"  placeholder="请输入选择题问题">
 												<label class="control-label" for="updateJudge_question" style="display:none;"></label>
 												</div>
@@ -449,7 +452,7 @@
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 													</button>
-													<button type="button" class="btn btn-primary" id="updateChoice">
+													<button type="button" class="btn btn-primary" id="updateJudge">
 														修改
 													</button>
 												</div>

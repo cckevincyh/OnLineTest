@@ -7,6 +7,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.cc.onlinetest.dao.QuestionDao;
 import com.cc.onlinetest.domain.Choice;
 import com.cc.onlinetest.domain.Judge;
+import com.cc.onlinetest.domain.Subject;
 
 public class QuestionDaoImpl extends HibernateDaoSupport implements QuestionDao{
 
@@ -59,6 +60,36 @@ public class QuestionDaoImpl extends HibernateDaoSupport implements QuestionDao{
 			return (Judge) list.get(0);
 		}
 		return null;
+	}
+
+	@Override
+	public Choice updateChoice(Choice choice) {
+		Choice newChoice = null;
+		try{
+			this.getHibernateTemplate().clear();
+			//将传入的detached(分离的)状态的对象的属性复制到持久化对象中，并返回该持久化对象
+			newChoice = (Choice) this.getHibernateTemplate().merge(choice);
+			this.getHibernateTemplate().flush();
+		}catch (Throwable e1) {
+			e1.printStackTrace();
+			throw new RuntimeException(e1.getMessage());
+		}
+		return newChoice;
+	}
+
+	@Override
+	public Judge updateJudge(Judge judgeById) {
+		Judge newJudge = null;
+		try{
+			this.getHibernateTemplate().clear();
+			//将传入的detached(分离的)状态的对象的属性复制到持久化对象中，并返回该持久化对象
+			newJudge = (Judge) this.getHibernateTemplate().merge(judgeById);
+			this.getHibernateTemplate().flush();
+		}catch (Throwable e1) {
+			e1.printStackTrace();
+			throw new RuntimeException(e1.getMessage());
+		}
+		return newJudge;
 	}
 
 }

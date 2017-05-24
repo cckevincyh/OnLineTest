@@ -219,4 +219,58 @@ public class QuestionManageAction extends ActionSupport{
 		return null;
 	}
 	
+	
+	
+	
+	public String updateChoice(){
+		Choice choice = new Choice();
+		choice.setChoiceId(choiceId);
+		Choice choiceById = questionService.getChoiceById(choice);
+		choiceById.setQuestion(question);
+		choiceById.setOptionA(optionA);
+		choiceById.setOptionB(optionB);
+		choiceById.setOptionC(optionC);
+		choiceById.setOptionD(optionD);
+		choiceById.setAnswer(answer);
+		Choice updateChoice = questionService.updateChoice(choiceById);
+		int success = 0;
+		if(updateChoice!=null){
+			success = 1;
+		}else{
+			success = 0;
+		
+		}
+		try {
+			ServletActionContext.getResponse().getWriter().print(success);//向浏览器响应是否成功的状态码
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(e.getMessage());
+		}
+		return null;
+	}
+	
+	
+	public String updateJudge(){
+		Judge judge = new Judge();
+		judge.setJudgeId(judgeId);
+		Judge judgeById = questionService.getJudgeById(judge);
+		judgeById.setQuestion(question);
+		judgeById.setAnswer(answer);
+		Judge updateJudge = questionService.updateJudge(judgeById);
+		int success = 0;
+		if(updateJudge!=null){
+			success = 1;
+		}else{
+			success = 0;
+		
+		}
+		try {
+			ServletActionContext.getResponse().getWriter().print(success);//向浏览器响应是否成功的状态码
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(e.getMessage());
+		}
+		return null;
+	}
+	
 }

@@ -89,7 +89,7 @@ function validAddChoice() {
     }
 	
 	 var optionC = $.trim($("#optionC").val());
-    if (optionA == "") {
+    if (optionC == "") {
         $('#optionC').parent().addClass("has-error");
         $('#optionC').next().text("请输入选项C的答案");
         $("#optionC").next().show();

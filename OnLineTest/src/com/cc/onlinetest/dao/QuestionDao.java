@@ -13,4 +13,8 @@ public interface QuestionDao {
 
 	Judge getJudgeById(Judge judge);
 
+	Choice updateChoice(Choice choice);
+
+	Judge updateJudge(Judge judgeById);
+
 }
