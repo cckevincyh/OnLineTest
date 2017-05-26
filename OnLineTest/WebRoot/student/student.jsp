@@ -20,7 +20,6 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 
- <script src="${pageContext.request.contextPath}/js/adminUpdatePwd.js"></script>
 </head>
 
 
@@ -32,10 +31,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="collapse navbar-collapse main-navbar-collapse">
-                        <a class="navbar-brand" href="${pageContext.request.contextPath}/teacher/teacher.jsp"><strong>欢迎使用在线考试系统</strong></a>
+                        <a class="navbar-brand" href="${pageContext.request.contextPath}/student/student.jsp"><strong>欢迎使用在线考试系统</strong></a>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您， <s:property value="#session.teacher.teacherName"/> <i class="caret"></i></a>
+                                <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您， <s:property value="#session.student.studentName"/> <i class="caret"></i></a>
                             
                                  <ul class="dropdown-menu">
                                        <li><a href="#updatepwd" data-toggle="modal">修改密码</a></li>
@@ -59,10 +58,10 @@
             <div class="col-md-2 bootstrap-admin-col-left">
                 <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
                     <li>
-                        <a href="${pageContext.request.contextPath}/teacher/subjectManageAction_findSubjectByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 试卷管理</a>
+                        <a href="${pageContext.request.contextPath}/student/subjectManageAction_findSubjectByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 在线考试</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/teacher/teacherManageAction_findTeacherByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 成绩查询</a>
+                        <a href="${pageContext.request.contextPath}/student/teacherManageAction_findTeacherByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 成绩查询</a>
                     </li>
                    
                    
@@ -88,12 +87,12 @@
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="text-muted bootstrap-admin-box-title">试卷管理</div>
+                                <div class="text-muted bootstrap-admin-box-title">在线考试</div>
                             </div>
                             <div class="bootstrap-admin-panel-content">
                                 <ul>
-                                  	<li>查看试卷套题</li>
-                                    <li>添加、修改、删除试卷套题</li>
+                                  	<li>选择课程和试卷</li>
+                                    <li>参加考试</li>
                                 </ul>
                             </div>
                         </div>
@@ -105,7 +104,7 @@
                             </div>
                             <div class="bootstrap-admin-panel-content">
                                 <ul>
-                                    <li>查询学生成绩</li>
+                                    <li>查看考试成绩</li>
                                     <br>
                                 </ul>
                             </div>

@@ -15,6 +15,9 @@
   	</action>
   </package>
   
-
+ <package name="student_getAllCourse" extends="struts-default" namespace="/student">
+  	<action name="getAllCourseAction" method="getAllCourses" class="courseManageAction">
+  	</action>
+  </package>
   
 </struts>	

@@ -265,4 +265,19 @@ public class SubjectManageAction extends ActionSupport{
 		return "question";
 	}
 	
+	
+	
+	
+	/**
+	 * 得到试卷下的所有试题
+	 * @return
+	 */
+	public String getQuestions(){
+		Subject subject = new Subject();
+		subject.setSubjectId(subjectId);
+		Subject newSubject = subjectService.getSubjectById(subject);
+		ServletActionContext.getRequest().setAttribute("subject", newSubject);
+		return "questions";
+	}
+	
 }

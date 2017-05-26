@@ -20,4 +20,7 @@
  	<import resource="applicationContext-teacher-manage.xml"/>
  	<import resource="applicationContext-subject-manage.xml"/>
  	<import resource="applicationContext-question-manage.xml"/>
+ 	<import resource="applicationContext-student-login.xml"/>
+ 	<import resource="applicationContext-teacher-login.xml"/>
+ 	<import resource="applicationContext-online-test.xml"/>
  </beans>

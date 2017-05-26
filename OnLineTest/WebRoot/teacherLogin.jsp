@@ -6,7 +6,7 @@
 <html lang="zh-CN" class="bootstrap-admin-vertical-centered">
 <head>
 <meta charset="UTF-8">
-<title>在线考试系统后台</title>
+<title>在线考试系统</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,7 +20,7 @@
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 
 
-<script src="${pageContext.request.contextPath}/js/adminLogin.js"></script>
+<script src="${pageContext.request.contextPath}/js/teacherLogin.js"></script>
 
 </head>
 
@@ -38,18 +38,18 @@
         <div class="col-lg-12">
             <div class="alert alert-info">
                 <a class="close" data-dismiss="alert" href="#">&times;</a>
-                欢迎登录在线考试系统后台
+                欢迎教师登录在线考试系统
             </div>
             <form class="bootstrap-admin-login-form">
                 <div class="form-group">
-                    <label class="firstname" for="username">账&nbsp;号</label>
-                    <input type="text" class="form-control" id="username" placeholder="请输入管理员用户名"/>
-                    <label class="control-label" for="username" style="display:none;"></label>
+                    <label class="firstname" for="studentId">账&nbsp;号</label>
+                    <input type="text" class="form-control" id="teacherId" placeholder="请输入教师职工号"/>
+                    <label class="control-label" for="teacherId" style="display:none;"></label>
                 </div>
                 <div class="form-group">
                     <label class="firstname" for="password">密&nbsp;码</label>
                     <input type="password" class="form-control" id="password" placeholder="请输入密码"/>
-                    <label class="control-label" for="username" style="display:none;"></label>
+                    <label class="control-label" for="password" style="display:none;"></label>
                 </div>
                 <input type="button" class="btn btn-lg btn-primary" id="login_submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;录"/>
             </form>

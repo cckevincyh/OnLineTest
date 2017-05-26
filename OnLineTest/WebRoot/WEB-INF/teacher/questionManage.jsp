@@ -41,15 +41,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="collapse navbar-collapse main-navbar-collapse">
-                        <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/admin.jsp"><strong>欢迎使用在线考试系统</strong></a>
+                        <a class="navbar-brand" href="${pageContext.request.contextPath}/teacher/teacher.jsp"><strong>欢迎使用在线考试系统</strong></a>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您， <s:property value="#session.admin.username"/> <i class="caret"></i></a>
+                                <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您， <s:property value="#session.teacher.teacherName"/> <i class="caret"></i></a>
                             
                                  <ul class="dropdown-menu">
                                     <li><a href="#updatepwd" data-toggle="modal">修改密码</a></li>
                                      <li role="presentation" class="divider"></li>
-                                    <li><a href="${pageContext.request.contextPath}/adminLoginAction_logout.action">退出</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/teacherLoginAction_logout.action">退出</a></li>
                                 </ul>
                                 
                             </li>

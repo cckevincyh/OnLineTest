@@ -10,17 +10,33 @@
            	http://www.springframework.org/schema/context/spring-context-2.5.xsd
            	http://www.springframework.org/schema/tx 
            	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
-           	
-           	
- 	<import resource="applicationContext-db.xml"/>
- 	<import resource="applicationContext-admin-login.xml"/>
- 	<import resource="applicationContext-admin-info.xml"/>
- 	<import resource="applicationContext-course-manage.xml"/>
- 	<import resource="applicationContext-student-manage.xml"/>
- 	<import resource="applicationContext-teacher-manage.xml"/>
- 	<import resource="applicationContext-subject-manage.xml"/>
- 	<import resource="applicationContext-question-manage.xml"/>
- 	<import resource="applicationContext-student-login.xml"/>
- 	<import resource="applicationContext-teacher-login.xml"/>
- 	<import resource="applicationContext-online-test.xml"/>
+ 
+ 	
+ 	
+ 	
+ <bean id="onLineTestDao" class="com.cc.onlinetest.dao.impl.OnLineTestDaoImpl">
+ 		<property name="sessionFactory">
+ 			<ref bean="sessionFactory"/>
+ 		</property>
+ 	</bean>
+ 	
+ 	<bean id="onLineTestService" class="com.cc.onlinetest.service.impl.OnLineTestServiceImpl">
+ 		<property name="onLineTestDao">
+ 			<ref bean="onLineTestDao"/>
+ 		</property>
+ 		<property name="questionDao">
+ 			<ref bean="questionDao"/>
+ 		</property>
+ 		<property name="subjectDao">
+ 			<ref bean="subjectDao"/>
+ 		</property>
+ 	</bean>
+ 
+ 		
+ 	<bean id="onLineTestAction" class="com.cc.onlinetest.action.OnLineTestAction" scope="prototype">
+ 		<property name="onLineTestService">
+ 			<ref bean="onLineTestService"/>
+ 		</property>
+ 	</bean>
+ 	
  </beans>

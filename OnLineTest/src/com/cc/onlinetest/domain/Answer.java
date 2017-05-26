@@ -9,7 +9,7 @@ public class Answer {
 	private Integer questionType;
 	private String answer;
 	private String goodAnswer;
-	private String score;
+	private Integer score;
 	/**
 	 * @return the answerId
 	 */
@@ -97,14 +97,24 @@ public class Answer {
 	/**
 	 * @return the score
 	 */
-	public String getScore() {
+	public Integer getScore() {
 		return score;
 	}
 	/**
 	 * @param score the score to set
 	 */
-	public void setScore(String score) {
+	public void setScore(Integer score) {
 		this.score = score;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Answer [answerId=" + answerId + ", student=" + student
+				+ ", subject=" + subject + ", question=" + question
+				+ ", questionType=" + questionType + ", answer=" + answer
+				+ ", goodAnswer=" + goodAnswer + ", score=" + score + "]";
 	}
 	
 	

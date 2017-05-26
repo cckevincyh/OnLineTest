@@ -10,6 +10,17 @@
   	</action>
   </package>
   
-
+	  
+	  
+	  
+	  <package name="student_subject" extends="struts-default" namespace="/student">
+  		<action name="subjectManageAction_*" method="{1}" class="subjectManageAction">
+  			<result name="success">/WEB-INF/student/onLineTest.jsp</result>
+  			<result name="questions">/WEB-INF/student/questions.jsp</result>
+  	</action>
+  </package>
+  
+  
+  
   
 </struts>	

@@ -21,12 +21,9 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 
-<script src="${pageContext.request.contextPath}/js/getAllCourses.js"></script>
-<script src="${pageContext.request.contextPath}/js/addSubject.js"></script>
-<script src="${pageContext.request.contextPath}/js/updateSubject.js"></script>
-<script src="${pageContext.request.contextPath}/js/deleteSubject.js"></script>
-<script src="${pageContext.request.contextPath}/js/getSubject.js"></script>
-<script src="${pageContext.request.contextPath}/js/question.js"></script>
+<script src="${pageContext.request.contextPath}/js/student_getAllCourses.js"></script>
+<script src="${pageContext.request.contextPath}/js/student_getSubject.js"></script>
+<script src="${pageContext.request.contextPath}/js/test.js"></script>
 </head>
 
 
@@ -39,15 +36,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="collapse navbar-collapse main-navbar-collapse">
-                        <a class="navbar-brand" href="${pageContext.request.contextPath}/teacher/teacher.jsp"><strong>欢迎使用在线考试系统</strong></a>
+                        <a class="navbar-brand" href="${pageContext.request.contextPath}/student/student.jsp"><strong>欢迎使用在线考试系统</strong></a>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您， <s:property value="#session.teacher.teacherName"/> <i class="caret"></i></a>
+                                <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您， <s:property value="#session.student.studentId"/> <i class="caret"></i></a>
                             
                                  <ul class="dropdown-menu">
                                     <li><a href="#updatepwd" data-toggle="modal">修改密码</a></li>
                                      <li role="presentation" class="divider"></li>
-                                    <li><a href="${pageContext.request.contextPath}/teacherLoginAction_logout.action">退出</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/studentLoginAction_logout.action">退出</a></li>
                                 </ul>
                                 
                             </li>
@@ -65,10 +62,10 @@
             <div class="col-md-2 bootstrap-admin-col-left">
                 <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
                      <li class="active">
-                        <a href="${pageContext.request.contextPath}/teacher/subjectManageAction_findSubjectByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 试卷管理</a>
+                        <a href="${pageContext.request.contextPath}/student/subjectManageAction_findSubjectByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 在线考试</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/teacher/teacherManageAction_findTeacherByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 成绩查询</a>
+                        <a href="${pageContext.request.contextPath}/student/teacherManageAction_findTeacherByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 成绩查询</a>
                     </li>
                    
                 </ul>
@@ -83,7 +80,7 @@
                                 <div class="text-muted bootstrap-admin-box-title">查询</div>
                             </div>
                             <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
-                                <form class="form-horizontal" action="${pageContext.request.contextPath}/teacher/subjectManageAction_querySubject.action" method="post">
+                                <form class="form-horizontal" action="${pageContext.request.contextPath}/student/subjectManageAction_querySubject.action" method="post">
                                     <div class="col-lg-5 form-group">
                                         <label class="col-lg-4 control-label" for="query_ano">试卷名称</label>
                                         <div class="col-lg-8">
@@ -102,7 +99,6 @@
                                     </div>
                                     <div class="col-lg-2 form-group">
                                         <button type="submit" class="btn btn-primary" id="btn_query" onclick="query()">查询</button>
-                                        <button type="button" class="btn btn-primary" id="btn_add" data-toggle="modal" data-target="#addModal">添加</button>          
                                     </div>
                                 </form>
                             </div>
@@ -124,19 +120,19 @@
                             
                             <!---在此插入信息-->
                             <s:if test="#request.pb.beanList!=null">
-                            <s:iterator value="#request.pb.beanList" var="subject">    
-                             <tbody>
-	                         	   <td><s:property value="#subject.subjectName"/></td>
-	                         	   <td><s:property value="#subject.course.courseName"/></td>
-	                         	   <td><s:property value="#subject.subjectTime"/></td>
-	                               <td>
-	                               		<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findModal" onclick="getSubject(<s:property value="#subject.subjectId"/>)" >查看</button>
-	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateModal" onclick="updateSubject(<s:property value="#subject.subjectId"/>)">修改</button>
-	                                	<button type="button" class="btn btn-danger btn-xs" onclick="deleteSubject(<s:property value="#subject.subjectId"/>)">删除</button>
-	                                	<input type="hidden" id="question_action" value="${pageContext.request.contextPath}/teacher/subjectManageAction_questionManage.action">
-	                                	<button type="button" class="btn btn-success btn-xs" onclick="question(<s:property value="#subject.subjectId"/>)">试题</button>
-	                               </td>              
-                          	  </tbody>                  	
+                            <s:iterator value="#request.pb.beanList" var="subject">  
+                           	 <s:if test="#subject.choiceNum!=0 || #subject.judgeNum!=0">  
+	                             <tbody>
+		                         	   <td><s:property value="#subject.subjectName"/></td>
+		                         	   <td><s:property value="#subject.course.courseName"/></td>
+		                         	   <td><s:property value="#subject.subjectTime"/>分钟</td>
+		                                <td>
+		                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findModal" onclick="getSubject(<s:property value="#subject.subjectId"/>)" >查看</button>
+		                                	<input type="hidden" id="test_action" value="${pageContext.request.contextPath}/student/subjectManageAction_getQuestions.action"/>
+		                                	<button type="button" class="btn btn-success btn-xs" onclick="test(<s:property value="#subject.subjectId"/>)">考试</button>
+		                               	</td>              
+	                          	  </tbody>   
+                          	  </s:if>               	
                             </s:iterator>
                             </s:if>
                             <s:else>
@@ -185,8 +181,8 @@
                         <div class="pull-right"><!--右对齐--->
                            <ul class="pagination">
                            <li class="disabled"><a href="#">第<s:property value="#request.pb.pageCode"/>页/共<s:property value="#request.pb.totaPage"/>页</a></li>
-                           <li><a href="${pageContext.request.contextPath}/teacher/subjectManageAction_${pb.url }pageCode=1">首页</a></li>
-                           <li><a href="${pageContext.request.contextPath}/teacher/subjectManageAction_${pb.url }pageCode=${pb.pageCode-1 }">&laquo;</a></li><!-- 上一页 -->
+                           <li><a href="${pageContext.request.contextPath}/student/subjectManageAction_${pb.url }pageCode=1">首页</a></li>
+                           <li><a href="${pageContext.request.contextPath}/student/subjectManageAction_${pb.url }pageCode=${pb.pageCode-1 }">&laquo;</a></li><!-- 上一页 -->
                            <%-- 循环显示页码列表 --%>
 								<c:forEach begin="${begin }" end="${end }" var="i">
 								  <c:choose>
@@ -195,16 +191,16 @@
 								  			<li class="active"><a>${i }</a><li>							 
 								  	</c:when>
 								  	<c:otherwise>
-								  		<li><a href="${pageContext.request.contextPath}/teacher/subjectManageAction_${pb.url }pageCode=${i}">${i}</a></li>
+								  		<li><a href="${pageContext.request.contextPath}/student/subjectManageAction_${pb.url }pageCode=${i}">${i}</a></li>
 								  	</c:otherwise>
 								  </c:choose>
 								</c:forEach>
 				        	   <%--如果当前页数没到总页数，即没到最后一页,则需要显示下一页 --%>
 							  <c:if test="${pb.pageCode < pb.totaPage }">
-								  <li><a href="${pageContext.request.contextPath}/teacher/subjectManageAction_${pb.url }pageCode=${pb.pageCode+1}">&raquo;</a></li>
+								  <li><a href="${pageContext.request.contextPath}/student/subjectManageAction_${pb.url }pageCode=${pb.pageCode+1}">&raquo;</a></li>
 							</c:if>
 							<%--否则显示尾页 --%>
-							<li><a href="${pageContext.request.contextPath}/teacher/subjectManageAction_${pb.url }pageCode=${pb.totaPage}">尾页</a></li>
+							<li><a href="${pageContext.request.contextPath}/student/subjectManageAction_${pb.url }pageCode=${pb.totaPage}">尾页</a></li>
 							</ul>
                            </div>
                     </s:if>           
@@ -216,179 +212,6 @@
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-     <!--------------------------------------添加的模糊框------------------------>  
-                                 <form class="form-horizontal">   <!--保证样式水平不混乱-->   
-                                        <!-- 模态框（Modal） -->
-									<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-														&times;
-													</button>
-													<h4 class="modal-title" id="myModalLabel">
-														添加新的试卷
-													</h4>
-												</div>
-												<div class="modal-body">
-												
-										<!---------------------表单-------------------->
-										 <div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">试卷名称</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="addSubjectName"  placeholder="请输入试卷名称">
-												<label class="control-label" for="addSubjectName" style="display:none;"></label>
-												</div>
-										</div>
-										
-										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">课程</label>
-											<div class="col-sm-7">
-												 <select class="form-control" id="addCourse">
-                                           				 <option value="-1">请选择</option>                                         
-                                      			  </select>
-												<label class="control-label" for="addCourse" style="display: none;"></label>	
-											</div>
-										</div>
-										
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">考试时间</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="addSubjectTime"  placeholder="请输入考试时间">
-												<label class="control-label" for="addSubjectTime" style="display:none;"></label>
-												</div>
-										</div>
-										
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">选择题分数</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="addChoiceScore"  placeholder="请输入选择题的分值">
-												<label class="control-label" for="addChoiceScore" style="display:none;"></label>
-												</div>
-										</div>
-										
-										
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">判断题分数</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="addJudgeScore"  placeholder="请输入判断题的分值">
-												<label class="control-label" for="addJudgeScore" style="display:none;"></label>
-												</div>
-										</div>
-											
-										<!---------------------表单-------------------->
-									</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-													</button>
-													<button type="button" class="btn btn-primary" id="addSubject">
-														添加
-													</button>
-												</div>
-											</div><!-- /.modal-content -->
-										</div><!-- /.modal -->
-									</div>
-
-                                 </form>	
- 								<!--------------------------------------添加的模糊框------------------------>  
- 
- 
- 
- 
-     
-                                     <!-- 修改模态框（Modal） -->
-                                     <!-------------------------------------------------------------->  
-                                
-                                        <!-- 修改模态框（Modal） -->
-                               <form class="form-horizontal">   <!--保证样式水平不混乱-->   
-									<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-														&times;
-													</button>
-													<h4 class="modal-title" id="updateModalLabel">
-														修改课程
-													</h4>
-												</div>
-												<div class="modal-body">
-												
-										<!---------------------表单-------------------->
-										 <div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">试卷名称</label>
-												<div class="col-sm-7">
-												<input type="hidden" class="form-control" id="updateSubjectId">
-													<input type="text" class="form-control" id="updateSubjectName"  placeholder="请输入试卷名称">
-												<label class="control-label" for="updateSubjectName" style="display:none;"></label>
-												</div>
-										</div>
-										
-										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">课程</label>
-											<div class="col-sm-7">
-												 <select class="form-control" id="updateCourse">
-                                           				 <option value="-1">请选择</option>                                         
-                                      			  </select>
-												<label class="control-label" for="updateCourse" style="display: none;"></label>	
-											</div>
-										</div>
-										
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">考试时间</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateSubjectTime"  placeholder="请输入考试时间">
-												<label class="control-label" for="updateSubjectTime" style="display:none;"></label>
-												</div>
-										</div>
-										
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">选择题分数</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateChoiceScore"  placeholder="请输入选择题的分值">
-												<label class="control-label" for="updateChoiceScore" style="display:none;"></label>
-												</div>
-										</div>
-										
-										
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">判断题分数</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateJudgeScore"  placeholder="请输入判断题的分值">
-												<label class="control-label" for="updateJudgeScore" style="display:none;"></label>
-												</div>
-										</div>
-											
-										<!---------------------表单-------------------->
-															
-										</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-													</button>
-													<button type="button" class="btn btn-primary" id="updateSubject">
-														修改
-													</button>
-												</div>
-											</div><!-- /.modal-content -->
-										</div><!-- /.modal -->
-									</div>
-	
-                                 </form>
-                                   <!-------------------------------------------------------------->
- 
-    
-    
-    
-    
- 
  
  
  
