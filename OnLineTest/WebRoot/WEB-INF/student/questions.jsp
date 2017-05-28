@@ -127,22 +127,22 @@
 		                                	<ul>
 		                                	 <div class="radio">
 												  <label>
-												    <input type="radio" name='optionsA_<s:property value="#choice.choiceId"/>' id='optionsA_<s:property value="#choice.choiceId"/>' value='<s:property value="#choice.choiceId"/>_1_A'>A. <s:property value="#choice.optionA"/>
+												    <input type="radio" name='options_<s:property value="#choice.choiceId"/>' id='optionsA_<s:property value="#choice.choiceId"/>' value='<s:property value="#choice.choiceId"/>_1_A'>A. <s:property value="#choice.optionA"/>
 												  </label>
 												</div>
 												<div class="radio">
 												  <label>
-												    <input type="radio" name='optionsB_<s:property value="#choice.choiceId"/>' id='optionsB_<s:property value="#choice.choiceId"/>' value='<s:property value="#choice.choiceId"/>_1_B'>B. <s:property value="#choice.optionB"/>
+												    <input type="radio" name='options_<s:property value="#choice.choiceId"/>' id='optionsB_<s:property value="#choice.choiceId"/>' value='<s:property value="#choice.choiceId"/>_1_B'>B. <s:property value="#choice.optionB"/>
 												  </label>
 												</div>
 												<div class="radio">
 												  <label>
-												    <input type="radio" name='optionsC_<s:property value="#choice.choiceId"/>' id='optionsC_<s:property value="#choice.choiceId"/>' value='<s:property value="#choice.choiceId"/>_1_C'>C. <s:property value="#choice.optionC"/>
+												    <input type="radio" name='options_<s:property value="#choice.choiceId"/>' id='optionsC_<s:property value="#choice.choiceId"/>' value='<s:property value="#choice.choiceId"/>_1_C'>C. <s:property value="#choice.optionC"/>
 												  </label>
 												</div>
 												<div class="radio">
 												  <label>
-												    <input type="radio" name='optionsD_<s:property value="#choice.choiceId"/>' id='optionsD_<s:property value="#choice.choiceId"/>' value='<s:property value="#choice.choiceId"/>_1_D'>D. <s:property value="#choice.optionD"/>
+												    <input type="radio" name='options_<s:property value="#choice.choiceId"/>' id='optionsD_<s:property value="#choice.choiceId"/>' value='<s:property value="#choice.choiceId"/>_1_D'>D. <s:property value="#choice.optionD"/>
 												  </label>
 												</div>
 		                               		 </ul>
@@ -162,12 +162,12 @@
 		                                	<ul>
 		                                	 <div class="radio">
 												  <label>
-												    <input type="radio" name='optionsY_<s:property value="#judge.judgeId"/>' id='optionsY_<s:property value="#judge.judgeId"/>' value='<s:property value="#judge.judgeId"/>_2_Y'>对
+												    <input type="radio" name='options_<s:property value="#judge.judgeId"/>' id='optionsY_<s:property value="#judge.judgeId"/>' value='<s:property value="#judge.judgeId"/>_2_Y'>对
 												  </label>
 												</div>
 												<div class="radio">
 												  <label>
-												    <input type="radio" name='optionsN_<s:property value="#judge.judgeId"/>' id='optionsN_<s:property value="#judge.judgeId"/>' value='<s:property value="#judge.judgeId"/>_2_N'>错
+												    <input type="radio" name='options_<s:property value="#judge.judgeId"/>' id='optionsN_<s:property value="#judge.judgeId"/>' value='<s:property value="#judge.judgeId"/>_2_N'>错
 												  </label>
 												</div>
 		                               		 </ul>
