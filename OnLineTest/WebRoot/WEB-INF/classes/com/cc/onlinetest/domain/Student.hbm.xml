@@ -19,5 +19,10 @@
 			<column name="pwd" />
 		</property>
 		
+		<property name="lockState" type="java.lang.Integer">
+			<column name="lockState" />
+		</property>
+		
+		
 	</class>
 </hibernate-mapping>

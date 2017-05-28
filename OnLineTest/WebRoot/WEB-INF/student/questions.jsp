@@ -29,8 +29,6 @@
 
 
 
-
-
 <body class="bootstrap-admin-with-small-navbar">
     <nav class="navbar navbar-inverse navbar-fixed-top bootstrap-admin-navbar bootstrap-admin-navbar-under-small" role="navigation">
         <div class="container">
@@ -83,8 +81,7 @@
                             <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                                 <form class="form-horizontal" action="${pageContext.request.contextPath}/student/subjectManageAction_querySubject.action" method="post">
                                     <div class="col-lg-12 form-group">
-                                        <label class="col-lg-5 control-label" for="query_ano"><h4><strong>试卷名称:</strong></h4></label>
-                                        <label class="col-lg-2 control-label" for="query_ano"><h4><strong><s:property value="#request.subject.subjectName"/></strong><h4></label>
+                                        <label class="col-lg-6 control-label" for="query_ano"><h4><strong><s:property value="#request.subject.subjectName"/></strong><h4></label>
                                     </div>
                                       <div class="col-lg-3 form-group">
                                         <label class="col-lg-6 control-label" for="query_bno1">课程:</label>
@@ -123,7 +120,7 @@
                               <div class="col-md-12">
                         				<div class="panel panel-default">
                         			    	<div class="panel-heading">
-                         			      	 <div class="text-muted bootstrap-admin-box-title">${index }.xxxxxxxxxxx?(选择题)</div>
+                         			      	 <div class="text-muted bootstrap-admin-box-title">${index }.<s:property value="#choice.question"/>?(选择题)</div>
                          			      	   <c:set var="index" value="${index+1 }"/><!--统计题目 -->
                          				  	</div>
                             			<div class="bootstrap-admin-panel-content">
@@ -158,7 +155,7 @@
                               <div class="col-md-12">
                         				<div class="panel panel-default">
                         			    	<div class="panel-heading">
-                         			      	 <div class="text-muted bootstrap-admin-box-title">${index }.xxxxxxxxxxx?(判断题)</div>
+                         			      	 <div class="text-muted bootstrap-admin-box-title">${index }.<s:property value="#judge.question"/>?(判断题)</div>
                          			      	 <c:set var="index" value="${index+1}"/><!--统计题目 -->
                          				  	</div>
                             			<div class="bootstrap-admin-panel-content">

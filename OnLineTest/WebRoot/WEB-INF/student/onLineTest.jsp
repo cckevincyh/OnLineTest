@@ -29,7 +29,6 @@
 
 
 
-
 <body class="bootstrap-admin-with-small-navbar">
     <nav class="navbar navbar-inverse navbar-fixed-top bootstrap-admin-navbar bootstrap-admin-navbar-under-small" role="navigation">
         <div class="container">
@@ -39,7 +38,7 @@
                         <a class="navbar-brand" href="${pageContext.request.contextPath}/student/student.jsp"><strong>欢迎使用在线考试系统</strong></a>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您， <s:property value="#session.student.studentId"/> <i class="caret"></i></a>
+                                <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您， <s:property value="#session.student.studentName"/> <i class="caret"></i></a>
                             
                                  <ul class="dropdown-menu">
                                     <li><a href="#updatepwd" data-toggle="modal">修改密码</a></li>
@@ -129,6 +128,7 @@
 		                                <td>
 		                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findModal" onclick="getSubject(<s:property value="#subject.subjectId"/>)" >查看</button>
 		                                	<input type="hidden" id="test_action" value="${pageContext.request.contextPath}/student/subjectManageAction_getQuestions.action"/>
+		                                	<input type="hidden" id="test_studentId" value="<s:property value="#session.student.studentId"/>"/>
 		                                	<button type="button" class="btn btn-success btn-xs" onclick="test(<s:property value="#subject.subjectId"/>)">考试</button>
 		                               	</td>              
 	                          	  </tbody>   

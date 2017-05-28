@@ -128,7 +128,7 @@
                              <tbody>
 	                         	   <td><s:property value="#subject.subjectName"/></td>
 	                         	   <td><s:property value="#subject.course.courseName"/></td>
-	                         	   <td><s:property value="#subject.subjectTime"/></td>
+	                         	   <td><s:property value="#subject.subjectTime"/>分钟</td>
 	                               <td>
 	                               		<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findModal" onclick="getSubject(<s:property value="#subject.subjectId"/>)" >查看</button>
 	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateModal" onclick="updateSubject(<s:property value="#subject.subjectId"/>)">修改</button>

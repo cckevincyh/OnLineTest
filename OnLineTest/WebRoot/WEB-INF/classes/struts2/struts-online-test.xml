@@ -5,7 +5,7 @@
 <struts>
   <package name="onLineTest" extends="struts-default" namespace="/onLineTest">
   	<action name="onLineTestAction_*" method="{1}" class="onLineTestAction">
-  		
+  		<result name="success">/WEB-INF/admin/courseManage.jsp</result>
   	</action>
   </package>
   

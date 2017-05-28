@@ -11,7 +11,10 @@ import net.sf.json.util.PropertyFilter;
 import org.apache.struts2.ServletActionContext;
 
 import com.cc.onlinetest.domain.PageBean;
+import com.cc.onlinetest.domain.Score;
 import com.cc.onlinetest.domain.Student;
+import com.cc.onlinetest.domain.Subject;
+import com.cc.onlinetest.service.ScoreService;
 import com.cc.onlinetest.service.StudentService;
 import com.cc.onlinetest.utils.Md5Utils;
 import com.opensymphony.xwork2.ActionSupport;
@@ -19,7 +22,15 @@ import com.opensymphony.xwork2.ActionSupport;
 public class StudentManageAction extends ActionSupport{
 	
 	private StudentService studentService;
-
+	private ScoreService scoreService;
+	
+	
+	/**
+	 * @param scoreService the scoreService to set
+	 */
+	public void setScoreService(ScoreService scoreService) {
+		this.scoreService = scoreService;
+	}
 	/**
 	 * @param studentService the studentService to set
 	 */
@@ -31,6 +42,15 @@ public class StudentManageAction extends ActionSupport{
 	private String studentName;
 	private String password;
 	private int pageCode;//当前页数
+	private int subjectId;
+	
+	
+	/**
+	 * @param subjectId the subjectId to set
+	 */
+	public void setSubjectId(int subjectId) {
+		this.subjectId = subjectId;
+	}
 	/**
 	 * @param studentId the studentId to set
 	 */
@@ -187,6 +207,44 @@ public class StudentManageAction extends ActionSupport{
 			throw new RuntimeException(e.getMessage());
 		}
 		
+		return null;
+	}
+	
+	
+	
+	
+	public String getState(){
+		Student student = new Student();
+		student.setStudentId(studentId);
+		Subject subject = new Subject();
+		subject.setSubjectId(subjectId);
+		Score score = scoreService.getScore(student, subject);
+		int state = 0;
+		if(score!=null){
+			//该试卷已经做过了
+			state = -2;
+		}else{
+			//该试卷没做过，或者正在做着试卷
+			//判断是否正在做试卷
+			Student studentById = studentService.getStudentById(student);
+			//锁住的状态是否等于当前科目,除了当前科目可以继续考试，不能进行其他考试
+			if(!(studentById.getLockState().equals(subject.getSubjectId()) || studentById.getLockState().equals(0))){
+				//正在考试
+				state = -1;
+			}else{
+				//允许进入做试卷
+				state = 1;
+				//修改学生锁住状态,设置为当前考试科目
+				studentById.setLockState(subject.getSubjectId());
+				studentService.updateStudent(studentById);
+			}
+		}
+		 HttpServletResponse response = ServletActionContext.getResponse();
+		 try {	
+			response.getWriter().print(state);		
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
+		}
 		return null;
 	}
 

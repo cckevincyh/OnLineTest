@@ -9,6 +9,11 @@
   	</action>
   </package>
   
+  
+  <package name="student" extends="struts-default" namespace="/student">
+  	<action name="studentManageAction_*" method="{1}" class="studentManageAction">
+  	</action>
+  </package>
 
   
 </struts>	

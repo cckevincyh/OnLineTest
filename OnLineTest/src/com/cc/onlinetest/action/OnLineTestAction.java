@@ -1,6 +1,12 @@
 package com.cc.onlinetest.action;
 
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
+
 import com.cc.onlinetest.domain.Student;
 import com.cc.onlinetest.domain.Subject;
 import com.cc.onlinetest.service.OnLineTestService;
@@ -54,8 +60,21 @@ public class OnLineTestAction extends ActionSupport{
 		Subject subject = new Subject();
 		subject.setSubjectId(subjectId);
 		boolean b = onLineTestService.onLineTest(student,subject,answer);
+		int state = 0;
+		if(b){
+			state = 1;
+		}else{
+			state = -1;
+		}
+		 HttpServletResponse response = ServletActionContext.getResponse();
+		 try {	
+			response.getWriter().print(state);		
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
+		}
 		return null;
 	}
+	
 
 
 

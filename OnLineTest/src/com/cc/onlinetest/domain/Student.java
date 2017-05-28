@@ -1,11 +1,29 @@
 package com.cc.onlinetest.domain;
 
+import java.util.Set;
+
 public class Student {
 
 	private String studentId;
 	private String studentName;
 	private String password;
+	private Integer lockState;
 	
+	
+	
+	
+	/**
+	 * @return the lockState
+	 */
+	public Integer getLockState() {
+		return lockState;
+	}
+	/**
+	 * @param lockState the lockState to set
+	 */
+	public void setLockState(Integer lockState) {
+		this.lockState = lockState;
+	}
 	/**
 	 * @return the studentId
 	 */

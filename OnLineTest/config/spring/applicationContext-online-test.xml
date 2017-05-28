@@ -30,6 +30,12 @@
  		<property name="subjectDao">
  			<ref bean="subjectDao"/>
  		</property>
+ 		<property name="scoreDao">
+ 			<ref bean="scoreDao"/>
+ 		</property>
+ 		<property name="studentDao">
+ 			<ref bean="studentDao"/>
+ 		</property>
  	</bean>
  
  		
