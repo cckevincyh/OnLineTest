@@ -62,7 +62,7 @@
                         <a href="${pageContext.request.contextPath}/student/subjectManageAction_findSubjectByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 在线考试</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/student/scoreManageAction_findMyScoreByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 成绩查询</a>
+                        <a href="${pageContext.request.contextPath}/student/scoreManageAction_findMyScoreByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 个人成绩查询</a>
                     </li>
                    
                 </ul>
@@ -81,6 +81,9 @@
                                     <div class="col-lg-12 form-group">
                                         <label class="col-lg-6 control-label" for="query_ano"><h4><strong><s:property value="#request.subject.subjectName"/></strong><h4></label>
                                     </div>
+                                    <div class="col-lg-12 form-group">
+                                        <label class="col-lg-6 control-label" for="query_ano"><i>(卷面总分:<s:property value="#request.resultScore.score.subject.allScore"/>)</i></label>
+                                    </div>
                                       <div class="col-lg-3 form-group">
                                         <label class="col-lg-6 control-label" for="query_bno1">课程:</label>
                                          <input type="hidden" id="test_subjectId" value="<s:property value="#request.subject.subjectId"/>">
@@ -88,19 +91,19 @@
                                     </div>
                                     
                                     <div class="col-lg-3 form-group">
-                                        <label class="col-lg-6 control-label" for="query_bno1">考试时间:</label>
+                                        <label class="col-lg-6 control-label" for="query_bno1">|  考试时间:</label>
                                         	<input type="hidden" id="test_time" value="<s:property value="#request.subject.subjectTime"/>">
                                           <label class="col-lg-6 control-label" for="query_bno1"><i><s:property value="#request.subject.subjectTime"/>分钟</i></label>
                                     </div>
                                     
                                     <div class="col-lg-3 form-group">
-                                        <label class="col-lg-6 control-label" for="query_bno1">考生姓名:</label>
+                                        <label class="col-lg-6 control-label" for="query_bno1">|  考生姓名:</label>
                                         <input type="hidden" id="test_studentId" value="<s:property value="#session.student.studentId"/>">
                                           <label class="col-lg-6 control-label" for="query_bno1"><i><s:property value="#session.student.studentName"/></i> </label>
                                     </div>
                                     
                                     <div class="col-lg-3  form-group">
-                                        <label class="col-lg-6 control-label" for="query_bno1">剩余时间:</label>
+                                        <label class="col-lg-6 control-label" for="query_bno1">|  剩余时间:</label>
                                           <label class="col-lg-6 control-label" for="query_bno1" id="remainTime"></label>
                                     </div>
                                 </form>
@@ -172,9 +175,12 @@
                            			 	</div>
                        		 		</div>
                  			   </div>
+                 			   
                             </s:iterator>
                             </s:if>
-                     
+                		     <div class="col-md-12" align="center">
+                                        <button type="button" class="btn btn-primary" onclick="assignment()">提交试卷</button>          
+                 			    </div>
                         
                 </div>
             </div>

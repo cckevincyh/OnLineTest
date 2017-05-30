@@ -284,19 +284,7 @@ public class SubjectManageAction extends ActionSupport{
 		Subject subject = new Subject();
 		subject.setSubjectId(subjectId);
 		Subject newSubject = subjectService.getSubjectById(subject);
-		Student student = (Student) ServletActionContext.getContext().getSession().get("student");
 		
-		Score score = scoreService.getScore(student, subject);
-		if(score!=null){
-			//该试卷已经做过了
-			return null;
-		}
-		//判断是否正在做试卷
-		Student studentById = studentService.getStudentById(student);
-		//锁住的状态是否等于当前科目,除了当前科目可以继续考试，不能进行其他考试
-		if(!(studentById.getLockState().equals(subject.getSubjectId()) || studentById.getLockState().equals(0))){
-			return null;
-		}
 		
 		
 		ServletActionContext.getRequest().setAttribute("subject", newSubject);
@@ -314,6 +302,19 @@ public class SubjectManageAction extends ActionSupport{
 		Subject subject = new Subject();
 		subject.setSubjectId(subjectId);
 		Subject newSubject = subjectService.getSubjectById(subject);
+		Student student = (Student) ServletActionContext.getContext().getSession().get("student");
+		
+		Score score = scoreService.getScore(student, subject);
+		if(score!=null){
+			//该试卷已经做过了
+			return null;
+		}
+		//判断是否正在做试卷
+		Student studentById = studentService.getStudentById(student);
+		//锁住的状态是否等于当前科目,除了当前科目可以继续考试，不能进行其他考试
+		if(!(studentById.getLockState().equals(subject.getSubjectId()) || studentById.getLockState().equals(0))){
+			return null;
+		}
 		ServletActionContext.getRequest().setAttribute("subject", newSubject);
 		return "questions";
 	}

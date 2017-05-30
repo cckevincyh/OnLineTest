@@ -11,12 +11,12 @@ function getSubject(id){
 		            success: function (data) {
 		            	$("#findSubjectName").val(data.subjectName);
 		              	 $("#findCourseName").val(data.course.courseName);
-						$("#findSubjectTime").val(data.subjectTime);
-						$("#findChoiceScore").val(data.choiceScore);
-						$("#findJudgeScore").val(data.judgeScore);
-						$("#findChoiceNum").val(data.choiceNum);
-						$("#findJudgeNum").val(data.judgeNum);
-						$("#findAllScore").val(data.allScore);
+						$("#findSubjectTime").val(data.subjectTime + " 分钟");
+						$("#findChoiceScore").val(data.choiceScore + " 分");
+						$("#findJudgeScore").val(data.judgeScore + " 个");
+						$("#findChoiceNum").val(data.choiceNum + " 个");
+						$("#findJudgeNum").val(data.judgeNum + " 分");
+						$("#findAllScore").val(data.allScore + " 分");
 		            }
 		        });
 		        

@@ -114,7 +114,7 @@
                              <tbody>
 	                         	   <td><s:property value="#choices.question"/></td>
 	                         	   <td>单选题</td>
-	                         	   <td><s:property value="#request.subject.choiceScore"/></td>
+	                         	   <td><s:property value="#request.subject.choiceScore"/>分</td>
 	                                <td>
 	                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findChoiceModal" onclick="getChoice(<s:property value="#choices.choiceId"/>)" >查看</button>
 	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateChoiceModal" onclick="updateChoice(<s:property value="#choices.choiceId"/>)">修改</button>
@@ -126,7 +126,7 @@
                              <tbody>
 	                         	   <td><s:property value="#judges.question"/></td>
 	                         	   <td>判断题</td>
-	                         	   <td><s:property value="#request.subject.judgeScore"/></td>
+	                         	   <td><s:property value="#request.subject.judgeScore"/>分</td>
 	                                <td>
 	                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findJudgeModal" onclick="getJudge(<s:property value="#judges.judgeId"/>)" >查看</button>
 	                                	<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateJudgeModal" onclick="updateJudge(<s:property value="#judges.judgeId"/>)">修改</button>

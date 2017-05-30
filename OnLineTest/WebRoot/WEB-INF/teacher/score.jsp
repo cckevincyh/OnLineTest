@@ -79,25 +79,28 @@
                                     <div class="col-lg-12 form-group">
                                         <label class="col-lg-6 control-label" for="query_ano"><h4><strong><s:property value="#request.resultScore.score.subject.subjectName"/></strong><h4></label>
                                     </div>
+                                    <div class="col-lg-12 form-group">
+                                        <label class="col-lg-6 control-label" for="query_ano"><i>(卷面总分:<s:property value="#request.resultScore.score.subject.allScore"/>)</i></label>
+                                    </div>
                                       <div class="col-lg-3 form-group">
                                         <label class="col-lg-6 control-label" for="query_bno1">课程:</label>
                                           <label class="col-lg-6 control-label" for="query_bno1"><i><s:property value="#request.resultScore.score.subject.course.courseName"/></i></label>
                                     </div>
                                     
                                     <div class="col-lg-3 form-group">
-                                        <label class="col-lg-6 control-label" for="query_bno1">考试时间:</label>
+                                        <label class="col-lg-6 control-label" for="query_bno1">|  考试时间:</label>
                                           <label class="col-lg-6 control-label" for="query_bno1"><i><s:property value="#request.resultScore.score.subject.subjectTime"/>分钟</i></label>
                                     </div>
                                     
                                     <div class="col-lg-3 form-group">
-                                        <label class="col-lg-6 control-label" for="query_bno1">考生姓名:</label>
+                                        <label class="col-lg-6 control-label" for="query_bno1">|  考生姓名:</label>
                                         <input type="hidden" id="test_studentId" value="<s:property value="#request.resultScore.score.student.studentId"/>">
                                           <label class="col-lg-6 control-label" for="query_bno1"><i><s:property value="#request.resultScore.score.student.studentName"/></i> </label>
                                     </div>
                                     
                                     <div class="col-lg-3  form-group">
-                                        <label class="col-lg-6 control-label" for="query_bno1">得分:</label>
-                                          <label class="col-lg-4 control-label" for="query_bno1" id="allSocre"><i><s:property value="#request.resultScore.score.allScore"/>分</i></label>
+                                        <label class="col-lg-6 control-label" for="query_bno1">|  总得分:</label>
+                                          <label class="col-lg-6 control-label" for="query_bno1" id="allSocre"><i><s:property value="#request.resultScore.score.allScore"/>分</i></label>
                                     </div>
                                 </form>
                             </div>

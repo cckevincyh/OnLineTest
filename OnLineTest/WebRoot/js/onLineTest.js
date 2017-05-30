@@ -161,3 +161,10 @@ $(function() {
 	            }
      	   });
 		}
+		
+		
+		function assignment(){
+			alert("已交卷");
+			endExam();
+		}
+			

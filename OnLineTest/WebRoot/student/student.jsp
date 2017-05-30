@@ -62,7 +62,7 @@
                         <a href="${pageContext.request.contextPath}/student/subjectManageAction_findSubjectByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 在线考试</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/student/scoreManageAction_findMyScoreByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 成绩查询</a>
+                        <a href="${pageContext.request.contextPath}/student/scoreManageAction_findMyScoreByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 个人成绩查询</a>
                     </li>
                    
                    
@@ -92,8 +92,8 @@
                             </div>
                             <div class="bootstrap-admin-panel-content">
                                 <ul>
-                                  	<li>选择课程和试卷</li>
-                                    <li>参加考试</li>
+                                  	<li>选择课程和试卷进行考试</li>
+                                    <li>考试途中,刷新考试页面或者退出考试页面视为交卷</li>
                                 </ul>
                             </div>
                         </div>
@@ -101,11 +101,11 @@
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="text-muted bootstrap-admin-box-title">成绩查询</div>
+                                <div class="text-muted bootstrap-admin-box-title">个人成绩查询</div>
                             </div>
                             <div class="bootstrap-admin-panel-content">
                                 <ul>
-                                    <li>查看考试成绩</li>
+                                    <li>查看个人考试成绩</li>
                                     <br>
                                 </ul>
                             </div>
