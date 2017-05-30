@@ -20,9 +20,6 @@
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
-
-<script src="${pageContext.request.contextPath}/js/test.js"></script>
-<script src="${pageContext.request.contextPath}/js/onLineTest.js"></script>
 </head>
 
 
@@ -58,11 +55,11 @@
             <!-- left, vertical navbar -->
             <div class="col-md-2 bootstrap-admin-col-left">
                 <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
-                     <li class="active">
-                        <a href="${pageContext.request.contextPath}/student/subjectManageAction_findSubjectByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 在线考试</a>
-                    </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/student/scoreManageAction_findMyScoreByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 成绩查询</a>
+                        <a href="${pageContext.request.contextPath}/teacher/subjectManageAction_findSubjectByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 试卷管理</a>
+                    </li>
+                    <li class="active">
+                        <a href="${pageContext.request.contextPath}/teacher/scoreManageAction_findScoreByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 成绩查询</a>
                     </li>
                    
                 </ul>
@@ -74,34 +71,32 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default bootstrap-admin-no-table-panel">
                             <div class="panel-heading">
-                                <div class="text-muted bootstrap-admin-box-title">试卷信息</div>
+                                <div class="text-muted bootstrap-admin-box-title">学生卷面信息</div>
                             </div>
                             <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
                                 <form class="form-horizontal" action="${pageContext.request.contextPath}/student/subjectManageAction_querySubject.action" method="post">
                                     <div class="col-lg-12 form-group">
-                                        <label class="col-lg-6 control-label" for="query_ano"><h4><strong><s:property value="#request.subject.subjectName"/></strong><h4></label>
+                                        <label class="col-lg-6 control-label" for="query_ano"><h4><strong><s:property value="#request.resultScore.score.subject.subjectName"/></strong><h4></label>
                                     </div>
                                       <div class="col-lg-3 form-group">
                                         <label class="col-lg-6 control-label" for="query_bno1">课程:</label>
-                                         <input type="hidden" id="test_subjectId" value="<s:property value="#request.subject.subjectId"/>">
-                                          <label class="col-lg-6 control-label" for="query_bno1"><i><s:property value="#request.subject.course.courseName"/></i></label>
+                                          <label class="col-lg-6 control-label" for="query_bno1"><i><s:property value="#request.resultScore.score.subject.course.courseName"/></i></label>
                                     </div>
                                     
                                     <div class="col-lg-3 form-group">
                                         <label class="col-lg-6 control-label" for="query_bno1">考试时间:</label>
-                                        	<input type="hidden" id="test_time" value="<s:property value="#request.subject.subjectTime"/>">
-                                          <label class="col-lg-6 control-label" for="query_bno1"><i><s:property value="#request.subject.subjectTime"/>分钟</i></label>
+                                          <label class="col-lg-6 control-label" for="query_bno1"><i><s:property value="#request.resultScore.score.subject.subjectTime"/>分钟</i></label>
                                     </div>
                                     
                                     <div class="col-lg-3 form-group">
                                         <label class="col-lg-6 control-label" for="query_bno1">考生姓名:</label>
-                                        <input type="hidden" id="test_studentId" value="<s:property value="#session.student.studentId"/>">
-                                          <label class="col-lg-6 control-label" for="query_bno1"><i><s:property value="#session.student.studentName"/></i> </label>
+                                        <input type="hidden" id="test_studentId" value="<s:property value="#request.resultScore.score.student.studentId"/>">
+                                          <label class="col-lg-6 control-label" for="query_bno1"><i><s:property value="#request.resultScore.score.student.studentName"/></i> </label>
                                     </div>
                                     
                                     <div class="col-lg-3  form-group">
-                                        <label class="col-lg-6 control-label" for="query_bno1">剩余时间:</label>
-                                          <label class="col-lg-6 control-label" for="query_bno1" id="remainTime"></label>
+                                        <label class="col-lg-6 control-label" for="query_bno1">得分:</label>
+                                          <label class="col-lg-4 control-label" for="query_bno1" id="allSocre"><i><s:property value="#request.resultScore.score.allScore"/>分</i></label>
                                     </div>
                                 </form>
                             </div>
@@ -112,35 +107,62 @@
                             
                               <c:set var="index" value="1"/><!--统计题目 -->
                             <!---在此插入信息-->
-                            <s:if test="#request.subject!=null">
+                            <s:if test="#request.resultScore!=null">
                             	<!--选择题 -->
-                            <s:iterator value="#request.subject.choices" var="choice">    
+                            <s:iterator value="#request.resultScore.choiceAnswers" var="choiceAnswer">    
                               <div class="col-md-12">
                         				<div class="panel panel-default">
                         			    	<div class="panel-heading">
-                         			      	 <div class="text-muted bootstrap-admin-box-title">${index }.<s:property value="#choice.question"/>?(选择题)</div>
+                         			      	 <div class="text-muted bootstrap-admin-box-title">
+                         			      	  <s:if test="#choiceAnswer.answer.answer==#choiceAnswer.answer.goodAnswer">
+                         			      		 ${index }.<s:property value="#choiceAnswer.choice.question"/>?  (选择题  <s:property value="#request.resultScore.score.subject.choiceScore"/>分)| 回答正确 | 正确答案:<s:property value="#choiceAnswer.answer.goodAnswer"/>|得分:<s:property value="#choiceAnswer.answer.score"/>
+                         			      	 </s:if>
+                         			      	 <s:else>
+                         			      	 	<font color="#FF0000"> ${index }.<s:property value="#choiceAnswer.choice.question"/>?  (选择题  <s:property value="#request.resultScore.score.subject.choiceScore"/>分)  | 回答错误 | 正确答案:<s:property value="#choiceAnswer.answer.goodAnswer"/>|得分:<s:property value="#choiceAnswer.answer.score"/></font>
+                         			      	 </s:else>
+                         			      	 </div>
                          			      	   <c:set var="index" value="${index+1 }"/><!--统计题目 -->
                          				  	</div>
                             			<div class="bootstrap-admin-panel-content">
 		                                	<ul>
 		                                	 <div class="radio">
 												  <label>
-												    <input type="radio" name='choice_<s:property value="#choice.choiceId"/>' id='optionsA_<s:property value="#choice.choiceId"/>' value='<s:property value="#choice.choiceId"/>_1_A'>A. <s:property value="#choice.optionA"/>
+												   <s:if test="#choiceAnswer.answer.answer=='A'.toString()">
+												    <input type="radio" name='choice_<s:property value="#choiceAnswer.choice.choiceId"/>' id='optionsA_<s:property value="#choiceAnswer.choice.choiceId"/>'  checked="checked" disabled="disabled">A. <s:property value="#choiceAnswer.choice.optionA"/>
+												 	 </s:if>
+												 	 <s:else>
+												 	    <input type="radio" name='choice_<s:property value="#choiceAnswer.choice.choiceId"/>' id='optionsA_<s:property value="#choiceAnswer.choice.choiceId"/>'  disabled="disabled">A. <s:property value="#choiceAnswer.choice.optionA"/>
+												 	 </s:else>
 												  </label>
 												</div>
 												<div class="radio">
 												  <label>
-												    <input type="radio" name='choice_<s:property value="#choice.choiceId"/>' id='optionsB_<s:property value="#choice.choiceId"/>' value='<s:property value="#choice.choiceId"/>_1_B'>B. <s:property value="#choice.optionB"/>
+												  <s:if test="#choiceAnswer.answer.answer=='B'.toString()">
+												    <input type="radio" name='choice_<s:property value="#choiceAnswer.choice.choiceId"/>' id='optionsB_<s:property value="#choiceAnswer.choice.choiceId"/>' checked="checked" disabled="disabled">B. <s:property value="#choiceAnswer.choice.optionB"/>
+												  	</s:if>
+												  	 <s:else>
+												 	   <input type="radio" name='choice_<s:property value="#choiceAnswer.choice.choiceId"/>' id='optionsB_<s:property value="#choiceAnswer.choice.choiceId"/>'  disabled="disabled">B. <s:property value="#choiceAnswer.choice.optionB"/>
+												  	</s:else>
 												  </label>
 												</div>
 												<div class="radio">
 												  <label>
-												    <input type="radio" name='choice_<s:property value="#choice.choiceId"/>' id='optionsC_<s:property value="#choice.choiceId"/>' value='<s:property value="#choice.choiceId"/>_1_C'>C. <s:property value="#choice.optionC"/>
+												    <s:if test="#choiceAnswer.answer.answer=='C'.toString()">
+												  	  <input type="radio" name='choice_<s:property value="#choiceAnswer.choice.choiceId"/>' id='optionsC_<s:property value="#choiceAnswer.choice.choiceId"/>'  checked="checked" disabled="disabled">C. <s:property value="#choiceAnswer.choice.optionC"/>
+												  	</s:if>
+												  	 <s:else>
+												  	     <input type="radio" name='choice_<s:property value="#choiceAnswer.choice.choiceId"/>' id='optionsC_<s:property value="#choiceAnswer.choice.choiceId"/>'  disabled="disabled">C. <s:property value="#choiceAnswer.choice.optionC"/>
+												  	 </s:else>
 												  </label>
 												</div>
 												<div class="radio">
 												  <label>
-												    <input type="radio" name='choice_<s:property value="#choice.choiceId"/>' id='optionsD_<s:property value="#choice.choiceId"/>' value='<s:property value="#choice.choiceId"/>_1_D'>D. <s:property value="#choice.optionD"/>
+												   <s:if test="#choiceAnswer.answer.answer=='D'.toString()">
+												    <input type="radio" name='choice_<s:property value="#choiceAnswer.choice.choiceId"/>' id='optionsD_<s:property value="#choiceAnswer.choice.choiceId"/>' checked="checked" disabled="disabled">D. <s:property value="#choiceAnswer.choice.optionD"/>
+												 </s:if>
+												  	 <s:else>
+												  	  <input type="radio" name='choice_<s:property value="#choiceAnswer.choice.choiceId"/>' id='optionsD_<s:property value="#choiceAnswer.choice.choiceId"/>'  disabled="disabled">D. <s:property value="#choiceAnswer.choice.optionD"/>
+												  	  </s:else>
 												  </label>
 												</div>
 		                               		 </ul>
@@ -149,23 +171,40 @@
                  			   </div>
                             </s:iterator>
                             	<!-- 判断题 -->
-                              <s:iterator value="#request.subject.judges" var="judge">    
+                              <s:iterator value="#request.resultScore.judgeAnswers" var="judgeAnswer">    
                               <div class="col-md-12">
                         				<div class="panel panel-default">
                         			    	<div class="panel-heading">
-                         			      	 <div class="text-muted bootstrap-admin-box-title">${index }.<s:property value="#judge.question"/>?(判断题)</div>
+                         			      	 <div class="text-muted bootstrap-admin-box-title">
+                         			      	  <s:if test="#judgeAnswer.answer.answer==#judgeAnswer.answer.goodAnswer">
+                         			      		 ${index }.<s:property value="#judgeAnswer.judge.question"/>?  (判断题  <s:property value="#request.resultScore.score.subject.judgeScore"/>分)| 回答正确 | 正确答案:<s:property value="#judgeAnswer.answer.goodAnswer"/>|得分:<s:property value="#judgeAnswer.answer.score"/>
+                         			      	 </s:if>
+                         			      	 <s:else>
+                         			      	 	<font color="#FF0000"> ${index }.<s:property value="#judgeAnswer.judge.question"/>?  (判断题  <s:property value="#request.resultScore.score.subject.judgeScore"/>分)| 回答错误| 正确答案:<s:property value="#judgeAnswer.answer.goodAnswer"/>|得分:<s:property value="#judgeAnswer.answer.score"/></font>
+                         			      	 </s:else>
                          			      	 <c:set var="index" value="${index+1}"/><!--统计题目 -->
+                         				  	</div>
                          				  	</div>
                             			<div class="bootstrap-admin-panel-content">
 		                                	<ul>
 		                                	 <div class="radio">
 												  <label>
-												    <input type="radio" name='judge_<s:property value="#judge.judgeId"/>' id='optionsY_<s:property value="#judge.judgeId"/>' value='<s:property value="#judge.judgeId"/>_2_Y'>对
+												    <s:if test="#judgeAnswer.answer.answer=='Y'.toString()">
+												    <input type="radio" name='judge_<s:property value="#judgeAnswer.judge.judgeId"/>' id='optionsY_<s:property value="#judgeAnswer.judge.judgeId"/>' disabled="disabled" checked="checked">对
+												  </s:if>
+												  	 <s:else>
+												  	  <input type="radio" name='judge_<s:property value="#judgeAnswer.judge.judgeId"/>' id='optionsY_<s:property value="#judgeAnswer.judge.judgeId"/>' disabled="disabled">对
+												  	  </s:else>
 												  </label>
 												</div>
 												<div class="radio">
 												  <label>
-												    <input type="radio" name='judge_<s:property value="#judge.judgeId"/>' id='optionsN_<s:property value="#judge.judgeId"/>' value='<s:property value="#judge.judgeId"/>_2_N'>错
+												      <s:if test="#judgeAnswer.answer.answer=='N'.toString()">
+												   		 <input type="radio" name='judge_<s:property value="#judgeAnswer.judge.judgeId"/>' id='optionsN_<s:property value="#judgeAnswer.judge.judgeId"/>' checked="checked" disabled="disabled"'>错
+												 	</s:if>
+												  	 <s:else>
+												  	  <input type="radio" name='judge_<s:property value="#judgeAnswer.judge.judgeId"/>' id='optionsN_<s:property value="#judgeAnswer.judge.judgeId"/>' disabled="disabled"'>错
+												  	 </s:else>
 												  </label>
 												</div>
 		                               		 </ul>

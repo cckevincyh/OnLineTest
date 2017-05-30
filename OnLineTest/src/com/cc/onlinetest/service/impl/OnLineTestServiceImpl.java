@@ -1,6 +1,8 @@
 package com.cc.onlinetest.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import com.cc.onlinetest.dao.OnLineTestDao;
@@ -10,7 +12,10 @@ import com.cc.onlinetest.dao.StudentDao;
 import com.cc.onlinetest.dao.SubjectDao;
 import com.cc.onlinetest.domain.Answer;
 import com.cc.onlinetest.domain.Choice;
+import com.cc.onlinetest.domain.ChoiceAnswer;
 import com.cc.onlinetest.domain.Judge;
+import com.cc.onlinetest.domain.JudgeAnswer;
+import com.cc.onlinetest.domain.ResultScore;
 import com.cc.onlinetest.domain.Score;
 import com.cc.onlinetest.domain.Student;
 import com.cc.onlinetest.domain.Subject;
@@ -203,6 +208,39 @@ public class OnLineTestServiceImpl implements OnLineTestService{
 			map.put(answer2.getQuestion()+"-"+answer2.getQuestionType(), answer2);
 		}
 		return map;
+	}
+
+	@Override
+	public ResultScore getResultScore(Student student, Subject subject) {
+		List<ChoiceAnswer> choiceAnswers = new ArrayList<ChoiceAnswer>();
+		List<JudgeAnswer> judgeAnswers = new ArrayList<JudgeAnswer>();
+		// TODO Auto-generated method stub
+		Subject subjectById = subjectDao.getSubjectById(subject);
+		//得到所有的选择题
+		Set<Choice> choices = subjectById.getChoices();
+		//得到所有的判断题
+		Set<Judge> judges = subjectById.getJudges();
+		
+		for(Choice choice : choices){
+			//遍历所有的选择题,得到对应的答案
+			Answer answer = onLineTestDao.getChoiceAnswer(student,subject,choice);
+			ChoiceAnswer choiceAnswer = new ChoiceAnswer();
+			choiceAnswer.setAnswer(answer);
+			choiceAnswer.setChoice(choice);
+			choiceAnswers.add(choiceAnswer);//加入集合
+		}
+		for(Judge judge : judges){
+			//遍历所有的判断题,得到对应的答案
+			Answer answer = onLineTestDao.getJudgeAnswer(student, subject, judge);
+			JudgeAnswer judgeAnswer = new JudgeAnswer();
+			judgeAnswer.setAnswer(answer);
+			judgeAnswer.setJudge(judge);
+			judgeAnswers.add(judgeAnswer);//加入集合
+		}
+		ResultScore resultScore = new ResultScore();
+		resultScore.setChoiceAnswers(choiceAnswers);
+		resultScore.setJudgeAnswers(judgeAnswers);
+		return resultScore;
 	}
 	
 	

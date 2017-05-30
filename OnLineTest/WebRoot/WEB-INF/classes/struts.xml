@@ -21,4 +21,5 @@
    <include file="struts2/struts-subject-manage.xml"></include>
    <include file="struts2/struts-question-manage.xml"></include>
    <include file="struts2/struts-online-test.xml"></include>
+   <include file="struts2/struts-score-manage.xml"></include>
 </struts>	

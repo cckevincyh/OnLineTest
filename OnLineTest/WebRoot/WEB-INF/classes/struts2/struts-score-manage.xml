@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+  <package name="scoreManage" extends="struts-default" namespace="/student">
+  	<action name="scoreManageAction_*" method="{1}" class="scoreManageAction">
+  		<result name="success">/WEB-INF/student/score.jsp</result>
+  		<result name="myscores">/WEB-INF/student/myscores.jsp</result>
+  	</action>
+  </package>
+  
+  
+   <package name="student_scoreManage" extends="struts-default" namespace="/teacher">
+  	<action name="scoreManageAction_*" method="{1}" class="scoreManageAction">
+  		<result name="scores">/WEB-INF/teacher/studentScores.jsp</result>
+  		<result name="success">/WEB-INF/teacher/score.jsp</result>
+  	</action>
+  </package>
+  
+  
+  
+</struts>	

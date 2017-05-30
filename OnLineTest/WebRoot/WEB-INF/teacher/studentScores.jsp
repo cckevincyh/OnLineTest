@@ -21,9 +21,8 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 
-<script src="${pageContext.request.contextPath}/js/student_getAllCourses.js"></script>
-<script src="${pageContext.request.contextPath}/js/student_getSubject.js"></script>
-<script src="${pageContext.request.contextPath}/js/test.js"></script>
+<script src="${pageContext.request.contextPath}/js/getAllCourses.js"></script>
+<script src="${pageContext.request.contextPath}/js/score.js"></script>
 </head>
 
 
@@ -35,7 +34,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="collapse navbar-collapse main-navbar-collapse">
-                        <a class="navbar-brand" href="${pageContext.request.contextPath}/student/student.jsp"><strong>欢迎使用在线考试系统</strong></a>
+                        <a class="navbar-brand" href="${pageContext.request.contextPath}/teacher/teacher.jsp"><strong>欢迎使用在线考试系统</strong></a>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" role="button" class="dropdown-toggle" data-hover="dropdown"> <i class="glyphicon glyphicon-user"></i> 欢迎您， <s:property value="#session.student.studentName"/> <i class="caret"></i></a>
@@ -60,11 +59,11 @@
             <!-- left, vertical navbar -->
             <div class="col-md-2 bootstrap-admin-col-left">
                 <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
-                     <li class="active">
-                        <a href="${pageContext.request.contextPath}/student/subjectManageAction_findSubjectByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 在线考试</a>
+                     <li>
+                        <a href="${pageContext.request.contextPath}/teacher/subjectManageAction_findSubjectByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 试卷管理</a>
                     </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/student/scoreManageAction_findMyScoreByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 成绩查询</a>
+                    <li class="active">
+                        <a href="${pageContext.request.contextPath}/teacher/scoreManageAction_findScoreByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 成绩查询</a>
                     </li>
                    
                 </ul>
@@ -76,10 +75,10 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default bootstrap-admin-no-table-panel">
                             <div class="panel-heading">
-                                <div class="text-muted bootstrap-admin-box-title">查询</div>
+                                <div class="text-muted bootstrap-admin-box-title">学生成绩查询</div>
                             </div>
                             <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
-                                <form class="form-horizontal" action="${pageContext.request.contextPath}/student/subjectManageAction_querySubject.action" method="post">
+                                <form class="form-horizontal" action="${pageContext.request.contextPath}/teacher/scoreManageAction_queryScore.action" method="post">
                                     <div class="col-lg-5 form-group">
                                         <label class="col-lg-4 control-label" for="query_ano">试卷名称</label>
                                         <div class="col-lg-8">
@@ -95,6 +94,19 @@
                                         </select>
                                         
                                  	   </div>
+                                    </div>
+                                     <div class="col-lg-5 form-group">
+                                        <label class="col-lg-4 control-label" for="query_ano">学生学号</label>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" type="text" id="studentId" name="studentId">
+                                        </div>
+                                    </div>
+                                    
+                                     <div class="col-lg-5 form-group">
+                                        <label class="col-lg-4 control-label" for="query_ano">学生姓名</label>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" type="text" id="studentName" name="studentName">
+                                        </div>
                                     </div>
                                     <div class="col-lg-2 form-group">
                                         <button type="submit" class="btn btn-primary" id="btn_query" onclick="query()">查询</button>
@@ -112,6 +124,8 @@
                                 <th>试卷名称</th>
                                 <th>课程</th>
                                 <th>考试时间</th>
+                                <th>学号</th>
+                                <th>姓名</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -119,17 +133,17 @@
                             
                             <!---在此插入信息-->
                             <s:if test="#request.pb.beanList!=null">
-                            <s:iterator value="#request.pb.beanList" var="subject">  
-                           	 <s:if test="#subject.choiceNum!=0 || #subject.judgeNum!=0">  
+                            <s:iterator value="#request.pb.beanList" var="score">  
+                           	 <s:if test="#score.subject.choiceNum!=0 || #score.subject.judgeNum!=0">  
 	                             <tbody>
-		                         	   <td><s:property value="#subject.subjectName"/></td>
-		                         	   <td><s:property value="#subject.course.courseName"/></td>
-		                         	   <td><s:property value="#subject.subjectTime"/>分钟</td>
+		                         	   <td><s:property value="#score.subject.subjectName"/></td>
+		                         	   <td><s:property value="#score.subject.course.courseName"/></td>
+		                         	   <td><s:property value="#score.subject.subjectTime"/>分钟</td>
+		                         	    <td><s:property value="#score.student.studentId"/></td>
+		                         	     <td><s:property value="#score.student.studentName"/></td>
 		                                <td>
-		                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#findModal" onclick="getSubject(<s:property value="#subject.subjectId"/>)" >查看</button>
-		                                	<input type="hidden" id="test_action" value="${pageContext.request.contextPath}/student/subjectManageAction_getQuestions.action"/>
-		                                	<input type="hidden" id="test_studentId" value="<s:property value="#session.student.studentId"/>"/>
-		                                	<button type="button" class="btn btn-success btn-xs" onclick="test(<s:property value="#subject.subjectId"/>)">考试</button>
+		                                	<input type="hidden" id="score_action" value="${pageContext.request.contextPath}/teacher/scoreManageAction_getTestScore.action"/>
+		                                	<button type="button" class="btn btn-success btn-xs" onclick="score(<s:property value="#score.subject.subjectId"/>,<s:property value="#score.student.studentId"/>)">成绩</button>
 		                               	</td>              
 	                          	  </tbody>   
                           	  </s:if>               	
@@ -138,6 +152,8 @@
                             <s:else>
                             	<tbody>
 	                         	   	<td>暂无数据</td>
+	                                <td>暂无数据</td>
+	                                <td>暂无数据</td>
 	                                <td>暂无数据</td>
 	                                <td>暂无数据</td>
 	                                <td>暂无数据</td>
@@ -181,8 +197,8 @@
                         <div class="pull-right"><!--右对齐--->
                            <ul class="pagination">
                            <li class="disabled"><a href="#">第<s:property value="#request.pb.pageCode"/>页/共<s:property value="#request.pb.totaPage"/>页</a></li>
-                           <li><a href="${pageContext.request.contextPath}/student/subjectManageAction_${pb.url }pageCode=1">首页</a></li>
-                           <li><a href="${pageContext.request.contextPath}/student/subjectManageAction_${pb.url }pageCode=${pb.pageCode-1 }">&laquo;</a></li><!-- 上一页 -->
+                           <li><a href="${pageContext.request.contextPath}/teacher/scoreManageAction_${pb.url }pageCode=1">首页</a></li>
+                           <li><a href="${pageContext.request.contextPath}/teacher/scoreManageAction_${pb.url }pageCode=${pb.pageCode-1 }">&laquo;</a></li><!-- 上一页 -->
                            <%-- 循环显示页码列表 --%>
 								<c:forEach begin="${begin }" end="${end }" var="i">
 								  <c:choose>
@@ -191,16 +207,16 @@
 								  			<li class="active"><a>${i }</a><li>							 
 								  	</c:when>
 								  	<c:otherwise>
-								  		<li><a href="${pageContext.request.contextPath}/student/subjectManageAction_${pb.url }pageCode=${i}">${i}</a></li>
+								  		<li><a href="${pageContext.request.contextPath}/teacher/scoreManageAction_${pb.url }pageCode=${i}">${i}</a></li>
 								  	</c:otherwise>
 								  </c:choose>
 								</c:forEach>
 				        	   <%--如果当前页数没到总页数，即没到最后一页,则需要显示下一页 --%>
 							  <c:if test="${pb.pageCode < pb.totaPage }">
-								  <li><a href="${pageContext.request.contextPath}/student/subjectManageAction_${pb.url }pageCode=${pb.pageCode+1}">&raquo;</a></li>
+								  <li><a href="${pageContext.request.contextPath}/teacher/scoreManageAction_${pb.url }pageCode=${pb.pageCode+1}">&raquo;</a></li>
 							</c:if>
 							<%--否则显示尾页 --%>
-							<li><a href="${pageContext.request.contextPath}/student/subjectManageAction_${pb.url }pageCode=${pb.totaPage}">尾页</a></li>
+							<li><a href="${pageContext.request.contextPath}/teacher/scoreManageAction_${pb.url }pageCode=${pb.totaPage}">尾页</a></li>
 							</ul>
                            </div>
                     </s:if>           
@@ -274,108 +290,6 @@
 				</div>
 
 				</form>	
-                                   <!-------------------------------------------------------------->
-                                   
-                                   
-                                   
-                                   
-                                   
-   			 <!--------------------------------------查看的模糊框------------------------>  
-                                 <form class="form-horizontal">   <!--保证样式水平不混乱-->   
-                                        <!-- 模态框（Modal） -->
-									<div class="modal fade" id="findModal" tabindex="-1" role="dialog" aria-labelledby="findModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-														&times;
-													</button>
-													<h4 class="modal-title" id="findModalLabel">
-														查看试卷信息
-													</h4>
-												</div>
-												<div class="modal-body">
-												
-										<!---------------------表单-------------------->
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">试卷名称</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findSubjectName" readonly="readonly">
-												
-												</div>
-										</div>
-										 <div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">所属课程</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findCourseName"  readonly="readonly">
-												
-												</div>
-										</div>
-											
-										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">考试时间</label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control" id="findSubjectTime"  readonly="readonly">
-												
-											</div>
-										</div>
-											
-										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">选择题个数</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findChoiceNum"  readonly="readonly">
-												
-												</div>
-										</div>
-										
-										
-										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">判断题个数</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findJudgeNum"  readonly="readonly">
-												
-												</div>
-										</div>
-										
-										
-										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">选择题分值</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findChoiceScore"  readonly="readonly">
-												
-												</div>
-										</div>
-										
-										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">判断题分值</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findJudgeScore"  readonly="readonly">
-												
-												</div>
-										</div>
-										
-										
-										<div class="form-group">	
-											<label for="firstname" class="col-sm-3 control-label">总分</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="findAllScore"  readonly="readonly">
-												
-												</div>
-										</div>
-										
-										
-										<!---------------------表单-------------------->
-									</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-													</button>
-												</div>
-											</div><!-- /.modal-content -->
-										</div><!-- /.modal -->
-									</div>
-
-                                 </form>	
- 								<!--------------------------------------查看的模糊框------------------------>  
                                    
                                    
 				    <div class="modal fade" id="modal_info" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">

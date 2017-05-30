@@ -70,7 +70,7 @@
                         <a href="${pageContext.request.contextPath}/teacher/subjectManageAction_findSubjectByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 试卷管理</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/teacher/teacherManageAction_findTeacherByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 成绩查询</a>
+                        <a href="${pageContext.request.contextPath}/teacher/scoreManageAction_findScoreByPage.action"><i class="glyphicon glyphicon-chevron-right"></i> 成绩查询</a>
                     </li>
                    
                 </ul>

@@ -25,4 +25,16 @@
  		</property>
  	</bean>
  	
+ 	<bean id="scoreManageAction" class="com.cc.onlinetest.action.ScoreManageAction">
+ 		<property name="scoreService">
+ 			<ref bean="scoreService"/>
+ 		</property>
+ 		<property name="subjectService">
+ 			<ref bean="subjectService"/>
+ 		</property>
+ 		<property name="onLineTestService">
+ 			<ref bean="onLineTestService"/>
+ 		</property>
+ 	</bean>
+ 	
  </beans>
