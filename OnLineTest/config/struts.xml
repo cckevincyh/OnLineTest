@@ -15,6 +15,8 @@
    <include file="struts2/struts-student-login.xml"></include>
    <include file="struts2/struts-teacher-login.xml"></include>
    <include file="struts2/struts-admin-info.xml"></include>
+   <include file="struts2/struts-student-info.xml"></include>
+   <include file="struts2/struts-teacher-info.xml"></include>
    <include file="struts2/struts-course-manage.xml"></include>
    <include file="struts2/struts-student-manage.xml"></include>
    <include file="struts2/struts-teacher-manage.xml"></include>

@@ -17,4 +17,6 @@ public interface StudentDao {
 
 	boolean deleteStudent(Student student);
 
+	Student updateStudentInfo(Student student);
+
 }

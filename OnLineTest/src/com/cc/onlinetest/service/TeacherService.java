@@ -18,5 +18,7 @@ public interface TeacherService {
 
 	boolean deleteTeacher(Teacher teacher);
 
+	Teacher updateTeacherInfo(Teacher teacher);
+
 
 }

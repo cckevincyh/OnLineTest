@@ -169,5 +169,20 @@ public class TeacherDaoImpl extends HibernateDaoSupport implements TeacherDao{
 		return b;
 	}
 
+	@Override
+	public Teacher updateTeacherInfo(Teacher teacher) {
+		Teacher newTeacher = null;
+		try{
+			this.getHibernateTemplate().clear();
+			//将传入的detached(分离的)状态的对象的属性复制到持久化对象中，并返回该持久化对象
+			newTeacher = (Teacher) this.getHibernateTemplate().merge(teacher);
+			this.getHibernateTemplate().flush();
+		}catch (Throwable e1) {
+			e1.printStackTrace();
+			throw new RuntimeException(e1.getMessage());
+		}
+		return newTeacher;
+	}
+
 	
 }

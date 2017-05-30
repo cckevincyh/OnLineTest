@@ -10,20 +10,11 @@
            	http://www.springframework.org/schema/context/spring-context-2.5.xsd
            	http://www.springframework.org/schema/tx 
            	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
-           	
-           	
- 	<import resource="applicationContext-db.xml"/>
- 	<import resource="applicationContext-admin-login.xml"/>
- 	<import resource="applicationContext-admin-info.xml"/>
- 	<import resource="applicationContext-student-info.xml"/>
- 	<import resource="applicationContext-teacher-info.xml"/>
- 	<import resource="applicationContext-course-manage.xml"/>
- 	<import resource="applicationContext-student-manage.xml"/>
- 	<import resource="applicationContext-teacher-manage.xml"/>
- 	<import resource="applicationContext-subject-manage.xml"/>
- 	<import resource="applicationContext-question-manage.xml"/>
- 	<import resource="applicationContext-student-login.xml"/>
- 	<import resource="applicationContext-teacher-login.xml"/>
- 	<import resource="applicationContext-score-manage.xml"/>
- 	<import resource="applicationContext-online-test.xml"/>
+ 
+ 		
+ 	<bean id="teacherInfoAction" class="com.cc.onlinetest.action.TeacherInfoAction" scope="prototype">
+ 		<property name="teacherService">
+ 			<ref bean="teacherService"/>
+ 		</property>
+ 	</bean>
  </beans>

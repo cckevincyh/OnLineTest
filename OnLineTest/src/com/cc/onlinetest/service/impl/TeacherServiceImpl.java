@@ -52,6 +52,12 @@ public class TeacherServiceImpl implements TeacherService{
 		// TODO Auto-generated method stub
 		return teacherDao.deleteTeacher(teacher);
 	}
+
+	@Override
+	public Teacher updateTeacherInfo(Teacher teacher) {
+		// TODO Auto-generated method stub
+		return teacherDao.updateTeacherInfo(teacher);
+	}
 	
 	
 }

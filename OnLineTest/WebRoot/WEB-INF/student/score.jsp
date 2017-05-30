@@ -20,6 +20,8 @@
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
+
+<script src="${pageContext.request.contextPath}/js/studentUpdatePwd.js"></script>
 </head>
 
 
@@ -38,7 +40,7 @@
                                  <ul class="dropdown-menu">
                                     <li><a href="#updatepwd" data-toggle="modal">修改密码</a></li>
                                      <li role="presentation" class="divider"></li>
-                                    <li><a href="${pageContext.request.contextPath}/teacherLoginAction_logout.action">退出</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/studentLoginAction_logout.action">退出</a></li>
                                 </ul>
                                 
                             </li>
@@ -275,7 +277,7 @@
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 								</button>
-								<button type="button" class="btn btn-primary" id="update_adminPwd">
+								<button type="button" class="btn btn-primary" id="update_Pwd">
 									修改
 								</button>
 							</div>

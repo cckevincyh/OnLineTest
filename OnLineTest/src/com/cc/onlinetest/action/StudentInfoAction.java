@@ -5,19 +5,33 @@ import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.cc.onlinetest.domain.Admin;
-import com.cc.onlinetest.service.AdminService;
+import com.cc.onlinetest.domain.Student;
+import com.cc.onlinetest.service.StudentService;
 import com.cc.onlinetest.utils.Md5Utils;
 import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("serial")
-public class AdminInfoAction extends ActionSupport{
+public class StudentInfoAction extends ActionSupport{
 
-	private AdminService  adminService;
+	private StudentService  studentService;
 
-	public void setAdminService(AdminService adminService) {
-		this.adminService = adminService;
+	
+	
+	/**
+	 * @param studentService the studentService to set
+	 */
+	public void setStudentService(StudentService studentService) {
+		this.studentService = studentService;
 	}
+
+
+
+
+
+
+
+
+
 	private String oldPwd;
 	private String newPwd;
 	private String confirmPwd;
@@ -60,17 +74,17 @@ public class AdminInfoAction extends ActionSupport{
 	 * 管理员密码修改
 	 * @return
 	 */
-	public String adminPwd(){
-		Admin admin = (Admin) ServletActionContext.getContext().getSession().get("admin");
+	public String studentPwd(){
+		Student student = (Student) ServletActionContext.getContext().getSession().get("student");
 		int state = -1;//原密码错误
 		//取出原密码进行比对
-		if(admin.getPassword().equals(Md5Utils.md5(oldPwd))){
+		if(student.getPassword().equals(Md5Utils.md5(oldPwd))){
 			if(newPwd.equals(confirmPwd)){
 				state = 1;//修改成功
-				admin.setPassword(Md5Utils.md5(newPwd));
-				admin = adminService.updateAdminInfo(admin);
+				student.setPassword(Md5Utils.md5(newPwd));
+				student = studentService.updateStudentInfo(student);
 				//重新存入session
-				ServletActionContext.getContext().getSession().put("admin", admin);
+				ServletActionContext.getContext().getSession().put("student", student);
 			}else{
 				state = 0;//确认密码不一致
 			}

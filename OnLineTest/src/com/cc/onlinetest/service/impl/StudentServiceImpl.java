@@ -52,6 +52,12 @@ public class StudentServiceImpl implements StudentService{
 		// TODO Auto-generated method stub
 		return studentDao.deleteStudent(student);
 	}
+
+	@Override
+	public Student updateStudentInfo(Student student) {
+		// TODO Auto-generated method stub
+		return studentDao.updateStudentInfo(student);
+	}
 	
 	
 	

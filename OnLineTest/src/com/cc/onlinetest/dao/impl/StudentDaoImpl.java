@@ -10,7 +10,6 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.cc.onlinetest.dao.StudentDao;
-import com.cc.onlinetest.domain.Admin;
 import com.cc.onlinetest.domain.PageBean;
 import com.cc.onlinetest.domain.Student;
 import com.cc.onlinetest.service.StudentService;
@@ -169,6 +168,21 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao{
 			throw new RuntimeException(e1.getMessage());
 		}
 		return b;
+	}
+
+	@Override
+	public Student updateStudentInfo(Student student) {
+		Student newStudent = null;
+		try{
+			this.getHibernateTemplate().clear();
+			//将传入的detached(分离的)状态的对象的属性复制到持久化对象中，并返回该持久化对象
+			newStudent = (Student) this.getHibernateTemplate().merge(student);
+			this.getHibernateTemplate().flush();
+		}catch (Throwable e1) {
+			e1.printStackTrace();
+			throw new RuntimeException(e1.getMessage());
+		}
+		return newStudent;
 	}
 
 }

@@ -17,4 +17,6 @@ public interface TeacherDao {
 
 	boolean deleteTeacher(Teacher teacher);
 
+	Teacher updateTeacherInfo(Teacher teacher);
+
 }

@@ -20,7 +20,7 @@
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
-
+<script src="${pageContext.request.contextPath}/js/teacherUpdatePwd.js"></script>
 <script src="${pageContext.request.contextPath}/js/getAllCourses.js"></script>
 <script src="${pageContext.request.contextPath}/js/addSubject.js"></script>
 <script src="${pageContext.request.contextPath}/js/updateSubject.js"></script>
@@ -442,7 +442,7 @@
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 								</button>
-								<button type="button" class="btn btn-primary" id="update_adminPwd">
+								<button type="button" class="btn btn-primary" id="update_Pwd">
 									修改
 								</button>
 							</div>

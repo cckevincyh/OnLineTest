@@ -17,4 +17,6 @@ public interface StudentService {
 
 	boolean deleteStudent(Student student);
 
+	Student updateStudentInfo(Student student);
+
 }
