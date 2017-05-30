@@ -26,6 +26,56 @@
 		<url-pattern>*.action</url-pattern>
 	</filter-mapping>
 	
+	
+	<!-- 管理员权限的过滤 -->
+ 	 <filter>
+		  <display-name>AdminFilter</display-name>
+		  <filter-name>AdminFilter</filter-name>
+		  <filter-class>com.cc.onlinetest.web.filter.AdminFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+	  <filter-name>AdminFilter</filter-name>
+	  <url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- 学生权限的过滤 -->
+ 	 <filter>
+		  <display-name>StudentFilter</display-name>
+		  <filter-name>StudentFilter</filter-name>
+		  <filter-class>com.cc.onlinetest.web.filter.StudentFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+	  <filter-name>StudentFilter</filter-name>
+	  <url-pattern>/student/*</url-pattern>
+	</filter-mapping>
+	
+	
+	<!-- 教师权限的过滤 -->
+ 	 <filter>
+		  <display-name>TeacherFilter</display-name>
+		  <filter-name>TeacherFilter</filter-name>
+		  <filter-class>com.cc.onlinetest.web.filter.TeacherFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+	  <filter-name>TeacherFilter</filter-name>
+	  <url-pattern>/teacher/*</url-pattern>
+	</filter-mapping>
+	
+	
+	  <!-- 错误404页面 -->
+		  <error-page>  
+		    <error-code>404</error-code>  
+		    <location>/error/400.jsp</location>  
+		</error-page>  
+		   <!-- 错误500页面 -->
+		<error-page>  
+		    <error-code>500</error-code>  
+		    <location>/error/500.jsp</location>  
+		</error-page>  
+	
 	 <!-- 配置struts2的过滤器 -->
   <filter>
 		<filter-name>struts2</filter-name>
